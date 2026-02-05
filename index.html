@@ -1,33 +1,44 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Architect | Creative Software Engineer Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <!-- Using local Tailwind build (index.css) -->
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.39.0",
-    "@emailjs/browser": "https://esm.sh/@emailjs/browser@^4.4.1"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
-  <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-700 selection:bg-cornflower selection:text-white">
-    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
-      <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cornflower/15 rounded-full filter blur-[140px] animate-blob"></div>
-      <div class="absolute bottom-[-10%] right-[-10%] w-[45%] h-[45%] bg-primary-400/15 rounded-full filter blur-[140px] animate-blob" style="animation-delay: 4s"></div>
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@^19.2.4",
+          "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+          "react/": "https://esm.sh/react@^19.2.4/",
+          "@google/genai": "https://esm.sh/@google/genai@^1.39.0",
+          "@emailjs/browser": "https://esm.sh/@emailjs/browser@^4.4.1"
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body
+    class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-700 selection:bg-cornflower selection:text-white"
+  >
+    <div
+      class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden"
+    >
+      <div
+        class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cornflower/15 rounded-full filter blur-[140px] animate-blob"
+      ></div>
+      <div
+        class="absolute bottom-[-10%] right-[-10%] w-[45%] h-[45%] bg-primary-400/15 rounded-full filter blur-[140px] animate-blob"
+        style="animation-delay: 4s"
+      ></div>
     </div>
     <div id="root" class="relative z-10"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="./index.tsx"></script>
+  </body>
 </html>
