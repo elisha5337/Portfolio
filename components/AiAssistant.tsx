@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { GoogleGenAI } from "@google/genai";
 import { PROJECTS, SKILLS } from "../constants";
 
 const AiAssistant: React.FC = () => {
@@ -10,30 +9,7 @@ const AiAssistant: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const getApiKey = () => {
-    try {
-      // Prefer Vite environment variable: VITE_AI_API_KEY
-      const viteKey = (import.meta as any).env?.VITE_AI_API_KEY as
-        | string
-        | undefined;
-      if (viteKey && viteKey !== "undefined") return viteKey;
-
-      // Fallback for older setups that used process.env.API_KEY
-      if (
-        typeof process !== "undefined" &&
-        process.env &&
-        (process.env as any).API_KEY
-      ) {
-        const key = (process.env as any).API_KEY;
-        return key && key !== "undefined" ? key : "";
-      }
-    } catch (e) {
-      return "";
-    }
-    return "";
-  };
-
-  const API_KEY = getApiKey();
+  // This component now uses a server-side proxy at `/api/genai`.
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -56,107 +32,30 @@ const AiAssistant: React.FC = () => {
     setMessages((prev) => [...prev, { role: "user", text: userMessage }]);
     setIsLoading(true);
 
-    if (!API_KEY) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "ai",
-          text: "Neural Intelligence Core is offline. Please configure API_KEY.",
-        },
-      ]);
-      setIsLoading(false);
-      return;
-    }
-
     try {
-      const ai = new GoogleGenAI({ apiKey: API_KEY });
-      const skillsContext = SKILLS.map(
-        (s) => `${s.name}: ${s.detailedDescription}`,
-      ).join("\n");
-      const projectsContext = PROJECTS.map(
-        (p) => `${p.title}: ${p.fullDescription}`,
-      ).join("\n");
+      const skillsContext = SKILLS.map((s) => `${s.name}: ${s.detailedDescription}`).join("\n");
+      const projectsContext = PROJECTS.map((p) => `${p.title}: ${p.fullDescription}`).join("\n");
 
-      // helper: retry on 429/resource-exhausted with exponential backoff
-      const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
-      const maxRetries = 3;
+      const resp = await fetch("/api/genai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: userMessage, skillsContext, projectsContext }),
+      });
 
-      const generateWithRetry = async () => {
-        let attempt = 0;
-        let lastErr: any = null;
-        while (attempt <= maxRetries) {
-          try {
-            const response = await ai.models.generateContent({
-              model: "gemini-3-flash-preview",
-              contents: userMessage,
-              config: {
-                systemInstruction: `You are a professional AI twin of Elisha Arba, Lead Software Architect. 
-          Use the following context to answer questions:
-          SKILLS:
-          ${skillsContext}
-          
-          PROJECTS:
-          ${projectsContext}
-          
-          BIO: Expert in React, Native Android, and UI/UX design.
-          
-          Guidelines:
-          - Be concise but helpful.
-          - If someone asks to "hire you", guide them to the contact form.
-          - Use bullet points for lists.`,
-              },
-            });
-
-            return response;
-          } catch (err: any) {
-            lastErr = err;
-            // if quota exceeded or rate limit, retry with backoff
-            const status = err?.response?.status || err?.status || null;
-            const message = err?.message || JSON.stringify(err);
-            const isRateLimit =
-              status === 429 ||
-              /quota|rate limit|RESOURCE_EXHAUSTED/i.test(message);
-            attempt += 1;
-            if (attempt > maxRetries || !isRateLimit) break;
-            const backoffMs =
-              Math.pow(2, attempt) * 1000 + Math.floor(Math.random() * 300);
-            console.warn(
-              `GenAI rate limit detected; retrying in ${backoffMs}ms (attempt ${attempt}/${maxRetries})`,
-            );
-            await sleep(backoffMs);
-            continue;
-          }
-        }
-        throw lastErr;
-      };
-
-      const response = await generateWithRetry();
-      const aiText =
-        response?.text ||
-        "I'm having trouble thinking right now. Please try again later!";
-      setMessages((prev) => [...prev, { role: "ai", text: aiText }]);
-    } catch (error: any) {
-      console.error("GenAI request error:", error);
-      // Try to extract helpful info from common error shapes
-      let diagnostic = "SYSTEM FAILURE: An unexpected error occurred.";
-      try {
-        if (error.response) {
-          const status = error.response.status;
-          const data =
-            error.response.data ||
-            error.response.body ||
-            JSON.stringify(error.response);
-          diagnostic = `GenAI API Error ${status}: ${typeof data === "string" ? data : JSON.stringify(data)}`;
-        } else if (error.message) {
-          diagnostic = `GenAI Error: ${error.message}`;
-        } else {
-          diagnostic = String(error);
-        }
-      } catch (e) {
-        diagnostic = "GenAI Error: (failed to parse error object)";
+      if (!resp.ok) {
+        const body = await resp.json().catch(() => ({}));
+        const msg = body?.error || `GenAI server error: ${resp.status}`;
+        setMessages((prev) => [...prev, { role: "ai", text: msg }]);
+        setIsLoading(false);
+        return;
       }
 
-      setMessages((prev) => [...prev, { role: "ai", text: diagnostic }]);
+      const data = await resp.json();
+      const aiText = data?.text || "I'm having trouble thinking right now. Please try again later!";
+      setMessages((prev) => [...prev, { role: "ai", text: aiText }]);
+    } catch (error: any) {
+      console.error("GenAI proxy error:", error);
+      setMessages((prev) => [...prev, { role: "ai", text: String(error?.message || error) }]);
     } finally {
       setIsLoading(false);
     }
