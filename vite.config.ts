@@ -5,7 +5,9 @@ import react from "@vitejs/plugin-react";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, ".", "");
   return {
-    base: "/Portfolio/", // ✅ ensures assets load correctly on GitHub Pages
+    // Use a Vercel-aware base so assets load correctly on Vercel (/) and
+    // preserve the GitHub Pages base when `VERCEL` is not set.
+    base: process.env.VERCEL ? "/" : "/Portfolio/",
     server: {
       port: 3000,
       host: "0.0.0.0",
