@@ -1,4 +1,5 @@
 import React from "react";
+import profileImg from "../src/Elsapc.png";
 
 const About: React.FC = () => {
   const stats = [
@@ -16,8 +17,8 @@ const About: React.FC = () => {
             <div className="absolute -top-12 -left-12 w-64 h-64 bg-cornflower/10 rounded-full blur-3xl"></div>
             <div className="relative aspect-[4/5] rounded-[3.5rem] overflow-hidden shadow-[0_32px_64px_-16px_rgba(100,149,237,0.3)] border-8 border-white dark:border-slate-800 image-zoom-container">
               <img
-                src="/src/Gemini_Generated_Image_4057v04057v04057(1)(1).png"
-                alt="Elisha Arba"
+                src={profileImg}
+                alt="Elsaye Arba"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60"></div>

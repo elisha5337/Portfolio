@@ -206,17 +206,17 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "1",
     content:
       "A master of both web and mobile paradigms. The speed and quality of delivery for our cross-platform app were exceptional.",
-    author: "Sarah Jenkins",
-    role: "Tech Lead @ InnovateMobility",
-    avatar: "https://i.pravatar.cc/150?u=sarah",
+    author: "Bereket Tadesse",
+    role: "Software Engineer ",
+    avatar: "./src/pc1.jpg",
   },
   {
     id: "2",
     content:
       "The Django backend built for our e-commerce site is incredibly stable and fast. A true professional engineer.",
-    author: "Mark Sterling",
-    role: "Founder @ CommerceCloud",
-    avatar: "https://i.pravatar.cc/150?u=mark",
+    author: "Samuel Getachew",
+    role: "Backend Developer",
+    avatar: "./src/pc.png",
   },
 ];
 
@@ -228,8 +228,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Optimizing your bridge and UI thread for a truly fluid 60fps mobile experience.",
     date: "March 10, 2024",
     readTime: "8 min read",
-    image:
-      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=800",
+    image: "./src/me.jpg",
   },
   {
     id: "2",
@@ -238,7 +237,6 @@ export const BLOG_POSTS: BlogPost[] = [
       "Hardening your Django applications against modern web vulnerabilities.",
     date: "April 05, 2024",
     readTime: "10 min read",
-    image:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800",
+    image: "./src/gc.jpg",
   },
 ];
