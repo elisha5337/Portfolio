@@ -4,11 +4,14 @@ import pc from "./src/pc.png";
 import me from "./src/me.jpg";
 import gc from "./src/gc.jpg";
 import elsa from "./src/elsa.png";
-import netflix from "./src/netflix.png"
-import group from "./src/download.webp",
-import seated from "./src/Gemini_Generated_Image_b282eob282eob282.png"
+import netflix from "./src/netflix.png";
+import group from "./src/download.webp";
+import seated from "./src/Gemini_Generated_Image_b282eob282eob282.png";
 import logo from "./src/logo.jpg";
 import profileImg from "./src/profileImg.jpg";
+import ElsaArba from "./src/ElsaArba.png";
+import FlyerDesignProject3 from "./src/FlyerDesignProject3.jpg";
+import ElsayeArba from "./src/Elsaye-Arba.jpg";
 
 export const PROJECTS: Project[] = [
   {
@@ -61,15 +64,7 @@ export const PROJECTS: Project[] = [
       "Social media marketing kit",
     ],
     image: elsa,
-    gallery: [
-      "./src/ElsaArba.png",
-      "./src/FlyerDesignProject3.jpg",
-      "./src/Elsaye-Arba.jpg",
-      "./src/logo.jpg",
-      "./src/FlyerDesignProject3.jpg",
-      "./src/Elsaye-Arba.jpg",
-      "./src/logo.jpg",
-    ],
+    gallery: [ElsaArba, FlyerDesignProject3, ElsayeArba, logo, FlyerDesignProject3, ElsayeArba, logo],
     tags: ["Graphics", "Design", "Photo Editing"],
     link: "",
     github: "#",
@@ -218,7 +213,7 @@ export const TESTIMONIALS: Testimonial[] = [
       "A master of both web and mobile paradigms. The speed and quality of delivery for our cross-platform app were exceptional.",
     author: "Bereket Tadesse",
     role: "Software Engineer ",
-    avatar: "./src/pc1.jpg",
+    avatar: pc1,
   },
   {
     id: "2",
@@ -226,7 +221,7 @@ export const TESTIMONIALS: Testimonial[] = [
       "The Django backend built for our e-commerce site is incredibly stable and fast. A true professional engineer.",
     author: "Samuel Getachew",
     role: "Backend Developer",
-    avatar: "./src/pc.png",
+    avatar: pc,
   },
 ];
 
@@ -238,7 +233,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Optimizing your bridge and UI thread for a truly fluid 60fps mobile experience.",
     date: "March 10, 2024",
     readTime: "8 min read",
-    image: "./src/me.jpg",
+    image: me,
   },
   {
     id: "2",
@@ -247,6 +242,6 @@ export const BLOG_POSTS: BlogPost[] = [
       "Hardening your Django applications against modern web vulnerabilities.",
     date: "April 05, 2024",
     readTime: "10 min read",
-    image: "./src/gc.jpg",
+    image: gc,
   },
 ];
