@@ -1,4 +1,5 @@
 import React from "react";
+import heroImg from "../src/pc1.jpg";
 
 const Hero: React.FC = () => {
   return (
@@ -8,7 +9,7 @@ const Hero: React.FC = () => {
     >
       <div className="absolute inset-0 z-0">
         <img
-          src="../src/pc1.jpg"
+          src={heroImg}
           alt="Technical Background"
           className="w-full h-full object-cover opacity-100 scale-100"
         />

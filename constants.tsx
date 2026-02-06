@@ -1,4 +1,14 @@
 import { Project, Skill, Testimonial, BlogPost } from "./types";
+import pc1 from "./src/pc1.jpg";
+import pc from "./src/pc.png";
+import me from "./src/me.jpg";
+import gc from "./src/gc.jpg";
+import elsa from "./src/elsa.png";
+import netflix from "./src/netflix.png"
+import group from "./src/download.webp",
+import seated from "./src/Gemini_Generated_Image_b282eob282eob282.png"
+import logo from "./src/logo.jpg";
+import profileImg from "./src/profileImg.jpg";
 
 export const PROJECTS: Project[] = [
   {
@@ -14,8 +24,8 @@ export const PROJECTS: Project[] = [
       "Customizable user roles and permissions",
       "Real-time notification system",
     ],
-    image: "./src/image.png",
-    tags: ["React", "Python", "Django", "web", "mySQL"],
+    image : pc1,
+    tags: ["React", "Python", "Django", "web",  "mySQL"],
     link: "https://github.com/elisha5337/DiscusionHubSystem",
     github: "#",
   },
@@ -32,7 +42,7 @@ export const PROJECTS: Project[] = [
       "Training simulation tests",
       "Tracking users status and progress",
     ],
-    image: "./src/me.jpg",
+    image:  me,
     tags: ["Java", "Mobile"],
     link: "https://github.com/elisha5337/ExamHub-Mob-App",
     github: "#",
@@ -50,7 +60,7 @@ export const PROJECTS: Project[] = [
       "High-end retouching and compositing",
       "Social media marketing kit",
     ],
-    image: "./src/elsa.png",
+    image: elsa,
     gallery: [
       "./src/ElsaArba.png",
       "./src/FlyerDesignProject3.jpg",
@@ -78,7 +88,7 @@ export const PROJECTS: Project[] = [
       "User authentication and authorization",
       "Responsive design and mobile optimization",
     ],
-    image: "./src/Gemini_Generated_Image_b282eob282eob282.png",
+    image:seated,
     tags: ["Fullstack", "Web", " React", "Node.js"],
     link: "https://github.com/elisha5337/AmazonCloneProject",
     github: "#",
@@ -97,7 +107,7 @@ export const PROJECTS: Project[] = [
       "Reporting and analytics engine",
       "User authentication and authorization",
     ],
-    image: "./src/download.webp",
+    image:group,
     tags: ["Fullstack", "Web", "React", "Node.js"],
     link: "https://github.com/elisha5337/Employee-Management-system-Django-React",
     github: "#",
@@ -116,7 +126,7 @@ export const PROJECTS: Project[] = [
       "User authentication and profile management",
       "Responsive mobile optimization",
     ],
-    image: "./src/netflix.png",
+    image: netflix,
     tags: ["Fullstack", "Web", "React", "Node.js"],
     link: "",
     github: "#",
