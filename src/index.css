@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+:root {
+  --depth: #0A0A0B;
+  --panel: #0F1115;
+  --border-color: rgba(255, 255, 255, 0.05);
+  --text-primary: #e2e8f0; /* slate-200 */
+  --accent: #f59e0b; /* amber-500 */
+  --muted: rgba(255, 255, 255, 0.03);
+}
+
+:root.light {
+  --depth: #f1f5f9; /* slate-100 */
+  --panel: #ffffff;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --text-primary: #0f172a; /* slate-900 */
+  --accent: #d97706; /* amber-600 */
+  --muted: rgba(0, 0, 0, 0.03);
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", serif;
+  
+  --color-accent: var(--accent);
+  --color-panel: var(--panel);
+  --color-depth: var(--depth);
+  --color-border: var(--border-color);
+  --color-muted: var(--muted);
+
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--depth);
+    color: var(--text-primary);
+    @apply antialiased selection:bg-accent selection:text-black transition-colors duration-300;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans tracking-tight;
+  }
+  
+  /* Ensure white text for headers in dark and dark text in light */
+  h1, h2, h3, h4, h5, h6 {
+     color: var(--text-primary);
+  }
+}
+
+.panel {
+  background-color: var(--panel);
+  border: 1px solid var(--border-color);
+}
+
+.micro-label {
+  @apply text-[10px] uppercase tracking-widest font-bold text-accent;
+}
+
+.grid-line {
+  border-color: var(--border-color);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--depth);
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-accent/40 transition-colors;
+}
+
+:root.light ::-webkit-scrollbar-thumb {
+  @apply bg-black/10;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-white/5 hover:bg-accent/40 rounded-full;
+}
+
