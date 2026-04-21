@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Elsaye Arba | Creative Digital Freelancer</title>
     <meta name="description" content="Official portfolio of Elsaye Arba, a professional digital freelancer from Ethiopia specializing in design, development, and video editing." />
+    <script>
+      (function () {
+        try {
+          const theme = localStorage.getItem('theme');
+          if (theme === 'light') {
+            document.documentElement.classList.add('light');
+          }
+        } catch (error) {
+          // Ignore storage access issues and fall back to the dark default.
+        }
+      })();
+    </script>
     
  
     <meta property="og:type" content="website" />
@@ -28,4 +40,3 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

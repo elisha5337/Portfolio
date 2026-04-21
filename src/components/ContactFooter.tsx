@@ -5,6 +5,7 @@ import { PERSONAL_INFO } from '../constants';
 
 export const ContactFooter = () => {
   const [formState, setFormState] = React.useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const currentYear = new Date().getFullYear();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -197,14 +198,14 @@ export const ContactFooter = () => {
       <footer className="py-8 px-8 border-t border-border bg-depth">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-[9px] text-slate-500 uppercase tracking-widest font-bold">
           <div>
-            © 2024 {PERSONAL_INFO.name}. All rights reserved.
+            &copy; {currentYear} {PERSONAL_INFO.name}. All rights reserved.
           </div>
-          
+
           <div className="flex gap-8">
             <a href="#" className="hover:text-accent transition-colors">Privacy</a>
             <a href="#" className="hover:text-accent transition-colors">Terms</a>
           </div>
-          
+
           <div className="flex items-center gap-1">
             <span className="opacity-20">Studio Core</span> v1.0
           </div>

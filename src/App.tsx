@@ -14,8 +14,10 @@ import { BackToTop } from './components/BackToTop';
 
 export default function App() {
   return (
-    <main className="min-h-screen bg-depth">
-      <Navbar />
+    <main className="min-h-screen bg-depth pt-[88px] md:pt-[96px]">
+      <header className="relative z-50">
+        <Navbar />
+      </header>
       <Hero />
       <AboutServices />
       <Portfolio />

@@ -1,24 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, Sun, Moon, ArrowUpRight } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { PERSONAL_INFO } from "../constants";
 
 export const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window === "undefined") return true;
+
+    try {
+      const savedTheme = window.localStorage.getItem("theme");
+      if (savedTheme) return savedTheme === "dark";
+    } catch (error) {
+      // Ignore storage errors and fall back to the dark default.
+    }
+
+    return true;
+  });
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    document.documentElement.classList.toggle("light", !isDark);
 
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.remove("light");
-    } else {
-      document.documentElement.classList.add("light");
+    try {
+      window.localStorage.setItem("theme", isDark ? "dark" : "light");
+    } catch (error) {
+      // Ignore storage errors.
     }
   }, [isDark]);
 
@@ -41,9 +47,9 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? "bg-panel/90 backdrop-blur-xl px-8 py-4 border-b border-border shadow-2xl" : "bg-transparent px-8 py-6"}`}
+      className="fixed top-0 left-0 right-0 z-50 w-full bg-panel border-b border-border shadow-2xl"
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-8 py-5">
         <a
           href="#"
           onClick={scrollToTop}
