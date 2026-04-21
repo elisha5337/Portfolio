@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 interface BeforeAfterSliderProps {
   before: string;
@@ -18,32 +18,59 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, af
     setSliderPosition(percent);
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    setIsResizing(true);
+    handleMove(e.clientX);
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (isResizing) handleMove(e.clientX);
   };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (isResizing) handleMove(e.touches[0].clientX);
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    setIsResizing(false);
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
   };
 
-  useEffect(() => {
-    const handleMouseUp = () => setIsResizing(false);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('touchend', handleMouseUp);
-    return () => {
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('touchend', handleMouseUp);
-    };
-  }, []);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const step = 5;
+
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      setSliderPosition((current) => Math.max(0, current - step));
+    }
+
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      setSliderPosition((current) => Math.min(100, current + step));
+    }
+
+    if (e.key === 'Home') {
+      e.preventDefault();
+      setSliderPosition(0);
+    }
+
+    if (e.key === 'End') {
+      e.preventDefault();
+      setSliderPosition(100);
+    }
+  };
 
   return (
     <div 
       ref={containerRef}
-      className="relative w-full h-full overflow-hidden select-none cursor-ew-resize group"
-      onMouseDown={() => setIsResizing(true)}
-      onTouchStart={() => setIsResizing(true)}
-      onMouseMove={handleMouseMove}
-      onTouchMove={handleTouchMove}
+      className="relative w-full h-full overflow-hidden select-none touch-none cursor-ew-resize group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="group"
+      aria-label="Before and after comparison slider"
     >
       {/* After image (background) */}
       <img

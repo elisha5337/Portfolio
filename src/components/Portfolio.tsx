@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ExternalLink, Plus, X, ArrowRight, MousePointer2, Eye, EyeOff, Layers } from 'lucide-react';
+import { Plus, X, ArrowRight, Layers } from 'lucide-react';
 import { PROJECTS } from '../constants';
+import { BeforeAfterSlider } from './BeforeAfterSlider';
 
 export const Portfolio = () => {
   const [filter, setFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState<null | typeof PROJECTS[0]>(null);
-  const [showAfter, setShowAfter] = useState(true);
   const sectionRef = useRef<HTMLDivElement>(null);
   
   const categories = ['All', ...new Set(PROJECTS.map(p => p.category))];
@@ -20,11 +20,10 @@ export const Portfolio = () => {
     sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  // Lock scroll and reset toggle when modal is open/closed
+  // Lock scroll while the modal is open.
   useEffect(() => {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
-      setShowAfter(true);
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -182,61 +181,17 @@ export const Portfolio = () => {
                   
                   {/* Photo Editing Logic */}
                   {selectedProject.category === 'Photo Editing' && (selectedProject as any).beforeImage && (selectedProject as any).afterImage ? (
-                    <div className="w-full h-full flex flex-col">
+                    <div className="relative w-full h-full flex flex-col">
                       <div className="absolute top-4 left-4 md:top-10 md:left-10 z-10 pointer-events-none">
                         <p className="text-[7px] md:text-[9px] font-black text-accent uppercase tracking-[0.4em] mb-1">Editor Suite</p>
                         <div className="h-[1px] w-4 md:w-6 bg-accent" />
                       </div>
 
-                      <div 
-                        className="relative flex-1 flex items-center justify-center cursor-crosshair select-none group/canvas min-h-0"
-                        onClick={() => setShowAfter(!showAfter)}
-                      >
-                        <img 
-                          src={showAfter ? (selectedProject as any).afterImage : (selectedProject as any).beforeImage} 
-                          alt="Process Preview"
-                          className="max-w-[95%] max-h-full object-contain rounded-sm drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]"
-                          referrerPolicy="no-referrer"
+                      <div className="relative flex-1 min-h-0">
+                        <BeforeAfterSlider
+                          before={(selectedProject as any).beforeImage}
+                          after={(selectedProject as any).afterImage}
                         />
-
-                        {/* Interactive Hint */}
-                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 group-hover/canvas:opacity-100 transition-all duration-500 transform translate-y-2 group-hover/canvas:translate-y-0">
-                           <div className="bg-accent text-black px-4 py-1.5 rounded-full text-[8px] font-black uppercase tracking-[0.2em] shadow-2xl flex items-center gap-2">
-                             <MousePointer2 className="w-2.5 h-2.5" /> Toggle
-                           </div>
-                        </div>
-                      </div>
-
-                      <div className="mt-2 md:mt-8 flex items-center justify-between px-2">
-                        <div className="flex items-center gap-2 md:gap-4">
-                          <div className="flex bg-white/5 p-0.5 md:p-1 rounded-full border border-white/5">
-                            <button 
-                              onClick={() => setShowAfter(false)}
-                              className={`px-3 md:px-6 py-1 md:py-2 rounded-full text-[7px] md:text-[9px] font-black uppercase tracking-widest transition-all ${!showAfter ? 'bg-accent text-black shadow-xl' : 'text-slate-500 hover:text-white'}`}
-                            >
-                              RAW
-                            </button>
-                            <button 
-                              onClick={() => setShowAfter(true)}
-                              className={`px-3 md:px-6 py-1 md:py-2 rounded-full text-[7px] md:text-[9px] font-black uppercase tracking-widest transition-all ${showAfter ? 'bg-accent text-black shadow-xl' : 'text-slate-500 hover:text-white'}`}
-                            >
-                              EDITED
-                            </button>
-                          </div>
-                          
-                          <div className="h-4 md:h-6 w-px bg-white/10 hidden sm:block" />
-                          
-                          <p className="hidden md:block text-[9px] font-bold text-slate-500 uppercase tracking-widest">
-                            Ability check: <span className="text-accent underline underline-offset-4 decoration-accent/30">{showAfter ? 'Post-Processing' : 'Input Analysis'}</span>
-                          </p>
-                        </div>
-
-                        <button 
-                          onClick={() => setShowAfter(!showAfter)}
-                          className={`w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all ${showAfter ? 'bg-accent text-black' : 'bg-white/5 text-white shadow-inner border border-white/10'}`}
-                        >
-                          {showAfter ? <Eye className="w-4 h-4 md:w-5 md:h-5 text-black" /> : <EyeOff className="w-4 h-4 md:w-5 md:h-5 opacity-40 text-white" />}
-                        </button>
                       </div>
                     </div>
                   ) : (
@@ -259,7 +214,7 @@ export const Portfolio = () => {
                 {selectedProject.category === 'Photo Editing' && (
                   <div className="bg-accent/5 border-t border-accent/10 px-4 py-3 text-center hidden md:block">
                      <p className="text-[8px] md:text-[10px] font-black text-accent uppercase tracking-[0.3em] md:tracking-[0.5em] animate-pulse">
-                       Interactive Portfolio: Select states to witness the transformation
+                       Interactive Portfolio: Drag the slider to compare before and after
                      </p>
                   </div>
                 )}
