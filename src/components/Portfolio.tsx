@@ -162,7 +162,7 @@ export const Portfolio = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.98, y: 20 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full h-full md:h-auto md:max-h-[90vh] max-w-7xl bg-panel border-y md:border border-white/5 flex flex-col md:flex-row overflow-hidden shadow-2xl md:rounded-3xl z-[110]"
+              className="relative w-full h-full md:h-auto md:max-h-[92vh] max-w-[96rem] bg-panel border-y md:border border-white/5 flex flex-col md:flex-row overflow-hidden shadow-2xl md:rounded-3xl z-[110]"
             >
               {/* Universal Close Handle */}
               <button 
@@ -173,10 +173,10 @@ export const Portfolio = () => {
               </button>
 
               {/* Viewport Area: Representing the Creative Work */}
-              <div className="w-full md:w-[62%] bg-depth relative flex flex-col h-[35vh] md:h-auto border-b md:border-b-0 md:border-r border-white/5 shrink-0">
+              <div className="w-full md:w-[68%] lg:w-[70%] bg-depth relative flex flex-col h-[48vh] md:h-auto border-b md:border-b-0 md:border-r border-white/5 shrink-0">
                 
                 {/* Visual Content Stage */}
-                <div className="flex-1 relative flex flex-col items-center justify-center p-4 md:p-12 overflow-hidden">
+                <div className="flex-1 relative flex flex-col items-center justify-center p-3 md:p-8 overflow-hidden">
                   <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
                   
                   {/* Photo Editing Logic */}

@@ -62,7 +62,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, af
   return (
     <div 
       ref={containerRef}
-      className="relative w-full h-full overflow-hidden select-none touch-none cursor-ew-resize group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+      className="relative w-full h-full overflow-hidden select-none touch-none cursor-ew-resize group bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
@@ -76,7 +76,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, af
       <img
         src={after}
         alt="After"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        className="absolute inset-0 w-full h-full object-contain pointer-events-none"
         referrerPolicy="no-referrer"
       />
       
@@ -88,7 +88,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, af
         <img
           src={before}
           alt="Before"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none"
           referrerPolicy="no-referrer"
         />
       </div>
