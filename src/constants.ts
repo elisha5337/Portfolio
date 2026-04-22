@@ -15,6 +15,7 @@ import edited2 from "./Assets/edited2.png";
 import edited3 from "./Assets/edited3.png";
 import raw3 from "./Assets/raw3.jpg";
 import edited4 from "./Assets/Gurd-photo.png";
+import pc1 from "./Assets/pc1.jpg";
 import raw4 from "./Assets/raw4.jpg";
 import banner1Web from "./Assets/banner1-web.jpg";
 import rollup1Web from "./Assets/RollUp1-web.jpg";
@@ -108,8 +109,7 @@ export const SERVICES = [
     description:
       "Intuitive and beautiful user interfaces designed for seamless user experiences.",
     icon: Layout,
-    image:
-      "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=800&auto=format&fit=crop",
+    image: { pc1 },
     deliverables: ["Figma prototypes", "User flows", "Design systems"],
     benefits: ["Reduced friction", "User satisfaction", "Modern look"],
   },
@@ -304,116 +304,114 @@ export const PROJECTS = [
   },
   {
     id: 12,
-    title: "Retouch Fashion Shoot Edit",
+    title: "High-Fashion Frequency Edit",
     category: "Photo Editing",
     description:
-      "Advanced color correction and grading to achieve a moody, Hollywood-style cinematic look.",
+      "Skin retouching using advanced frequency separation techniques for editorial work.",
     objective:
-      "Transform flat, raw photography into a dramatic storytelling asset.",
+      "Produce studio-quality skin texture while removing localized imperfections.",
     challenge:
-      "Matching skin tones while applying aggressive color shifts to the environment.",
+      "Preserving natural skin luminosity without the 'plastic' airbrushed look.",
     outcome:
-      "Client reported a significantly professional visual tone for their social campaign.",
+      "Resulted in gallery-ready portraits with consistent texture across the series.",
     tools: ["Adobe Photoshop", "Camera Raw", "Lightroom"],
     image: edited2,
     beforeImage: raw2,
     afterImage: edited2,
   },
-  ,
   {
     id: 13,
-    title: "Retouch Fashion Shoot Edit",
+    title: "Golden Hour Enhancements",
     category: "Photo Editing",
     description:
-      "Advanced color correction and grading to achieve a moody, Hollywood-style cinematic look.",
+      "Warming up flat outdoor photography to simulate prime golden hour lighting conditions.",
     objective:
-      "Transform flat, raw photography into a dramatic storytelling asset.",
+      "Enhance the emotional warmth and visual appeal of landscape portraits.",
     challenge:
-      "Matching skin tones while applying aggressive color shifts to the environment.",
+      "Ensuring the highlights don't blow out while pushing orange and yellow hues.",
     outcome:
-      "Client reported a significantly professional visual tone for their social campaign.",
+      "Successfully created a cohesive warm aesthetic for a lifestyle brand shoot.",
     tools: ["Adobe Photoshop", "Camera Raw", "Lightroom"],
     image: edited1,
     beforeImage: raw1,
     afterImage: edited1,
   },
-  ,
   {
     id: 14,
-    title: "Retouch Fashion Shoot Edit",
+    title: "Commercial Product Retouch",
     category: "Photo Editing",
     description:
-      "Advanced color correction and grading to achieve a moody, Hollywood-style cinematic look.",
+      "Detailed cleanup and reflection management for high-end commercial product images.",
     objective:
-      "Transform flat, raw photography into a dramatic storytelling asset.",
+      "Achieve a pristine, catalog-ready look by removing dust and micro-scratches.",
     challenge:
-      "Matching skin tones while applying aggressive color shifts to the environment.",
-    outcome:
-      "Client reported a significantly professional visual tone for their social campaign.",
+      "Manually rebuilding complex metallic reflections on curved surfaces.",
+    outcome: "Met strict brand guidelines for a digital advertising campaign.",
     tools: ["Adobe Photoshop", "Camera Raw", "Lightroom"],
     image: edited3,
     beforeImage: raw3,
     afterImage: edited3,
   },
-  ,
   {
     id: 15,
-    title: "Retouch Fashion Shoot Edit",
+    title: "Black and White Mastery",
     category: "Photo Editing",
     description:
-      "Advanced color correction and grading to achieve a moody, Hollywood-style cinematic look.",
+      "Converting color portraits into high-contrast, artistic black and white assets.",
     objective:
-      "Transform flat, raw photography into a dramatic storytelling asset.",
+      "Focusing on contrast and shadow to tell a deeper story without color distraction.",
     challenge:
-      "Matching skin tones while applying aggressive color shifts to the environment.",
+      "Balancing the gray scale to prevent the image from looking flat or muddy.",
     outcome:
-      "Client reported a significantly professional visual tone for their social campaign.",
+      "Selected as the primary creative direction for a solo artist's portfolio.",
     tools: ["Adobe Photoshop", "Camera Raw", "Lightroom"],
     image: edited4,
     beforeImage: raw4,
     afterImage: edited4,
   },
-  ,
   {
     id: 16,
-    title: "Summer Music Fest Flyer",
+    title: "Startup Launch Poster",
     category: "Graphics Design",
     description:
-      "Vibrant A5 flyer design with complex typography and 3D elements.",
-    objective: "Attract a young audience for an outdoor music festival.",
+      "An eye-catching A3 poster designed for local tech-hub networking events.",
+    objective:
+      "Communicate event details quickly using bold, modern Swiss-style typography.",
     challenge:
-      "Fitting a large artist lineup while maintaining readability and energy.",
-    outcome: "Social media shares hit record highs for the festival promotion.",
-    tools: ["Photoshop", "Cinema 4D"],
+      "Grouping dense technical data into a scannable and organized layout.",
+    outcome:
+      "Contributed to a record turnout for the university-led startup night.",
+    tools: ["Photoshop", "Illustrator"],
     image: rollup1Web,
   },
-  ,
   {
     id: 17,
-    title: "Summer Music Fest Flyer",
+    title: "Social Media Ad Banner",
     category: "Graphics Design",
     description:
-      "Vibrant A5 flyer design with complex typography and 3D elements.",
-    objective: "Attract a young audience for an outdoor music festival.",
+      "A set of responsive digital banners optimized for mobile engagement metrics.",
+    objective:
+      "Drive click-through rates (CTR) for a limited-time educational offer.",
     challenge:
-      "Fitting a large artist lineup while maintaining readability and energy.",
-    outcome: "Social media shares hit record highs for the festival promotion.",
-    tools: ["Photoshop", "Cinema 4D"],
+      "Designing for 'the fold' while maintaining brand integrity across varied sizes.",
+    outcome:
+      "Achieved a 15% improvement in conversion rates compared to previous designs.",
+    tools: ["Photoshop", "Illustrator"],
     image: banner1Web,
   },
-
-  ,
   {
     id: 18,
-    title: "Summer Music Fest Flyer",
+    title: "Modern Minimalist Iconography",
     category: "Logo Design",
     description:
-      "Vibrant A5 flyer design with complex typography and 3D elements.",
-    objective: "Attract a young audience for an outdoor music festival.",
+      "Creation of a custom icon set for a web-based project management tool.",
+    objective:
+      "Develop a cohesive visual language that simplifies complex UI actions.",
     challenge:
-      "Fitting a large artist lineup while maintaining readability and energy.",
-    outcome: "Social media shares hit record highs for the festival promotion.",
-    tools: ["Photoshop", "Cinema 4D"],
+      "Maintaining legibility at extremely small sizes (16x16 pixels).",
+    outcome:
+      "Improved user navigation speed and overall interface satisfaction.",
+    tools: ["Illustrator", "Photoshop"],
     image: logo1,
   },
 ];
