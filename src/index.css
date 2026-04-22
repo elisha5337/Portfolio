@@ -2,16 +2,6 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: dark;
-  --depth: #0A0A0B;
-  --panel: #0F1115;
-  --border-color: rgba(255, 255, 255, 0.05);
-  --text-primary: #e2e8f0; /* slate-200 */
-  --accent: #f59e0b; /* amber-500 */
-  --muted: rgba(255, 255, 255, 0.03);
-}
-
-:root.light {
   color-scheme: light;
   --depth: #f1f5f9; /* slate-100 */
   --panel: #ffffff;
@@ -19,6 +9,16 @@
   --text-primary: #0f172a; /* slate-900 */
   --accent: #d97706; /* amber-600 */
   --muted: rgba(0, 0, 0, 0.03);
+}
+
+:root.dark {
+  color-scheme: dark;
+  --depth: #0A0A0B;
+  --panel: #0F1115;
+  --border-color: rgba(255, 255, 255, 0.05);
+  --text-primary: #e2e8f0; /* slate-200 */
+  --accent: #f59e0b; /* amber-500 */
+  --muted: rgba(255, 255, 255, 0.03);
 }
 
 @theme {
@@ -78,11 +78,11 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-white/10 rounded-full hover:bg-accent/40 transition-colors;
+  @apply bg-black/10 rounded-full hover:bg-accent/40 transition-colors;
 }
 
-:root.light ::-webkit-scrollbar-thumb {
-  @apply bg-black/10;
+:root.dark ::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-accent/40 transition-colors;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -94,5 +94,9 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-white/5 hover:bg-accent/40 rounded-full;
+  @apply bg-black/5 hover:bg-accent/40 rounded-full transition-colors;
+}
+
+:root.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-white/5 hover:bg-accent/40 rounded-full transition-colors;
 }

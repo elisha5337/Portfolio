@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Plus, X, ArrowRight, Layers } from 'lucide-react';
+import { Plus, X, ArrowRight, Layers, Maximize2 } from 'lucide-react';
 import { PROJECTS } from '../constants';
 import { BeforeAfterSlider } from './BeforeAfterSlider';
 
 export const Portfolio = () => {
   const [filter, setFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState<null | typeof PROJECTS[0]>(null);
+  const [expandedVisualProject, setExpandedVisualProject] = useState<null | typeof PROJECTS[0]>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   
   const categories = ['All', ...new Set(PROJECTS.map(p => p.category))];
@@ -20,12 +21,33 @@ export const Portfolio = () => {
     sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const closeSelectedProject = () => {
+    setSelectedProject(null);
+    setExpandedVisualProject(null);
+  };
+
+  const closeExpandedVisualProject = () => {
+    setExpandedVisualProject(null);
+  };
+
+  const openVisualFullscreen = () => {
+    if (selectedProject) {
+      setExpandedVisualProject(selectedProject);
+    }
+  };
+
   // Lock scroll while the modal is open.
   useEffect(() => {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
+    }
+  }, [selectedProject]);
+
+  useEffect(() => {
+    if (!selectedProject) {
+      setExpandedVisualProject(null);
     }
   }, [selectedProject]);
 
@@ -153,7 +175,7 @@ export const Portfolio = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
+              onClick={closeSelectedProject}
               className="absolute inset-0 bg-black/98 backdrop-blur-xl"
             />
             
@@ -166,8 +188,8 @@ export const Portfolio = () => {
             >
               {/* Universal Close Handle */}
               <button 
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-6 right-6 z-[150] w-12 h-12 bg-white/5 hover:bg-accent hover:text-black rounded-full border border-white/10 flex items-center justify-center text-white transition-all backdrop-blur-md group/close"
+                onClick={closeSelectedProject}
+                className="absolute top-6 right-6 z-[150] w-12 h-12 bg-red-500/10 hover:bg-red-500/20 hover:text-red-400 rounded-full border border-red-500/20 flex items-center justify-center text-red-500 transition-all backdrop-blur-md group/close"
               >
                 <X className="w-5 h-5 transition-transform group-hover/close:rotate-90" />
               </button>
@@ -178,6 +200,17 @@ export const Portfolio = () => {
                 {/* Visual Content Stage */}
                 <div className="flex-1 relative flex flex-col items-center justify-center p-3 md:p-8 overflow-hidden">
                   <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+                  {(selectedProject.category === 'Photo Editing' || selectedProject.category === 'Graphics Design') && (
+                    <button
+                      type="button"
+                      onClick={openVisualFullscreen}
+                      aria-label="Open fullscreen preview"
+                      className="absolute top-4 right-4 z-20 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/65 px-3 py-2 text-[9px] font-black uppercase tracking-[0.25em] text-white/80 backdrop-blur-md transition-all hover:border-accent/40 hover:bg-accent hover:text-black"
+                    >
+                      <Maximize2 className="h-3.5 w-3.5" />
+                      Full Screen
+                    </button>
+                  )}
                   
                   {/* Photo Editing Logic */}
                   {selectedProject.category === 'Photo Editing' && (selectedProject as any).beforeImage && (selectedProject as any).afterImage ? (
@@ -214,7 +247,7 @@ export const Portfolio = () => {
                 {selectedProject.category === 'Photo Editing' && (
                   <div className="bg-accent/5 border-t border-accent/10 px-4 py-3 text-center hidden md:block">
                      <p className="text-[8px] md:text-[10px] font-black text-accent uppercase tracking-[0.3em] md:tracking-[0.5em] animate-pulse">
-                       Interactive Portfolio: Drag the slider to compare before and after
+                       Interactive Portfolio: Use the eye button for instant preview and drag the slider to compare
                      </p>
                   </div>
                 )}
@@ -224,8 +257,69 @@ export const Portfolio = () => {
               <div className="flex-1 bg-panel overflow-hidden">
                 <ProjectDetails 
                   project={selectedProject} 
-                  onClose={() => setSelectedProject(null)} 
+                  onClose={closeSelectedProject} 
                 />
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {expandedVisualProject && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-0">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeExpandedVisualProject}
+              className="absolute inset-0 bg-black/95 backdrop-blur-xl"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.985, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.985, y: 16 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              role="dialog"
+              aria-modal="true"
+              className="relative flex h-full w-full flex-col overflow-hidden bg-black shadow-2xl"
+            >
+              <button
+                onClick={closeExpandedVisualProject}
+                className="absolute top-4 right-4 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-red-500/20 bg-red-500/10 text-red-500 transition-all hover:bg-red-500/20 hover:text-red-400"
+              >
+                <X className="h-5 w-5 transition-transform hover:rotate-90" />
+              </button>
+
+              <div className="flex h-full flex-1 flex-col p-4 sm:p-6 lg:p-8">
+                <div className="mb-4 flex items-center justify-between gap-4 text-[9px] font-black uppercase tracking-[0.35em] text-accent/70">
+                  <span>{expandedVisualProject.category}</span>
+                  <span>{expandedVisualProject.title}</span>
+                </div>
+
+                {expandedVisualProject.category === 'Photo Editing' && (expandedVisualProject as any).beforeImage && (expandedVisualProject as any).afterImage ? (
+                  <div className="flex h-full min-h-0 flex-col gap-4">
+                    <p className="text-[9px] font-black uppercase tracking-[0.35em] text-white/45">
+                      Use the eye button for instant preview and drag to compare
+                    </p>
+                    <div className="relative min-h-0 flex-1 overflow-hidden rounded-[1.5rem] border border-white/10 bg-black">
+                      <BeforeAfterSlider
+                        before={(expandedVisualProject as any).beforeImage}
+                        after={(expandedVisualProject as any).afterImage}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex h-full items-center justify-center overflow-hidden rounded-[1.5rem] border border-white/10 bg-black p-2 sm:p-4">
+                    <img
+                      src={expandedVisualProject.image}
+                      alt={expandedVisualProject.title}
+                      className="max-h-full max-w-full object-contain"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                )}
               </div>
             </motion.div>
           </div>

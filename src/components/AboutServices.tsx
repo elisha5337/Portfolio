@@ -135,7 +135,7 @@ export const AboutServices = () => {
             >
               <button 
                 onClick={() => setSelectedService(null)}
-                className="absolute top-6 right-6 w-10 h-10 bg-black/50 backdrop-blur-md rounded border border-white/10 flex items-center justify-center text-white hover:bg-accent hover:text-black transition-all"
+                className="absolute top-6 right-6 w-10 h-10 bg-red-500/10 backdrop-blur-md rounded border border-red-500/20 flex items-center justify-center text-red-500 hover:bg-red-500/20 hover:text-red-400 transition-all"
               >
                 <X className="w-5 h-5" />
               </button>

@@ -6,20 +6,20 @@ import { PERSONAL_INFO } from "../constants";
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(() => {
-    if (typeof window === "undefined") return true;
+    if (typeof window === "undefined") return false;
 
     try {
       const savedTheme = window.localStorage.getItem("theme");
       if (savedTheme) return savedTheme === "dark";
     } catch (error) {
-      // Ignore storage errors and fall back to the dark default.
+      // Ignore storage errors and fall back to the light default.
     }
 
-    return true;
+    return false;
   });
 
   useEffect(() => {
-    document.documentElement.classList.toggle("light", !isDark);
+    document.documentElement.classList.toggle("dark", isDark);
 
     try {
       window.localStorage.setItem("theme", isDark ? "dark" : "light");
@@ -111,7 +111,9 @@ export const Navbar = () => {
           </button>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 text-accent"
+            className={`p-2 transition-colors ${
+              isMenuOpen ? "text-red-500 hover:text-red-400" : "text-accent"
+            }`}
           >
             {isMenuOpen ? (
               <X className="w-6 h-6" />
@@ -133,7 +135,7 @@ export const Navbar = () => {
           >
             <button
               onClick={() => setIsMenuOpen(false)}
-              className="absolute top-8 right-8 p-2 text-slate-500"
+              className="absolute top-8 right-8 p-2 text-red-500 hover:text-red-400 transition-colors"
             >
               <X className="w-6 h-6" />
             </button>

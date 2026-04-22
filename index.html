@@ -9,11 +9,9 @@
       (function () {
         try {
           const theme = localStorage.getItem('theme');
-          if (theme === 'light') {
-            document.documentElement.classList.add('light');
-          }
+          document.documentElement.classList.toggle('dark', theme === 'dark');
         } catch (error) {
-          // Ignore storage access issues and fall back to the dark default.
+          // Ignore storage access issues and fall back to the light default.
         }
       })();
     </script>

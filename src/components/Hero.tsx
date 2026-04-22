@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
 import {
-  ArrowDown,
   Mail,
   Github,
   Instagram,
@@ -10,186 +9,232 @@ import {
   Sparkles,
 } from "lucide-react";
 import { PERSONAL_INFO } from "../constants";
+import heroBackground from "../Assets/defence.png";
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 1.03 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 1, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+const panelVariants = {
+  hidden: { opacity: 0, x: 24 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+      staggerChildren: 0.08,
+      delayChildren: 0.16,
+    },
+  },
+};
+
+const contentItemVariants = {
+  hidden: { opacity: 0, y: 14 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: "easeOut" },
+  },
+};
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-start px-6 overflow-hidden bg-black">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0 bg-black">
-        <img
-          src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2670&auto=format&fit=crop"
-          alt="Technical Studio"
-          className="w-full h-full object-contain object-center opacity-100"
-          referrerPolicy="no-referrer"
-        />
-      </div>
-
-      <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto">
+    <section className="relative overflow-hidden bg-depth px-4 sm:px-6 py-6 sm:py-10">
+      <div className="mx-auto grid w-full max-w-7xl gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)] lg:items-stretch">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="mb-6"
+          variants={imageVariants}
+          initial="hidden"
+          animate="visible"
+          whileHover={{ scale: 1.01 }}
+          transition={{ type: "spring", stiffness: 140, damping: 22 }}
+          className="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-border bg-black shadow-[0_30px_80px_rgba(15,23,42,0.15)] sm:aspect-[16/10] lg:aspect-auto lg:min-h-[calc(100svh-8rem)]"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-full text-[9px] font-black text-accent uppercase tracking-[0.2em] mb-8">
-            <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-            Available for New Projects
-          </div>
-          <p className="text-slate-500 text-[10px] uppercase tracking-[0.5em] font-black mb-6">
-            Expert Creative Direction
-          </p>
-          <h2 className="text-5xl md:text-8xl font-serif font-light leading-[1.05] mb-8 tracking-tighter">
-            I Create Digital <br className="hidden md:block" />
-            <span className="text-accent italic">Experiences</span> That{" "}
-            <br className="hidden md:block" />
-            Grow Your Business
-          </h2>
-          <p className="max-w-2xl mx-auto text-slate-400 text-sm md:text-base leading-relaxed mb-12 font-medium opacity-80">
-            Based in Ethiopia, I specialize in high-end design, professional
-            video editing, and modern web development solutions for
-            forward-thinking brands.
-          </p>
+          <img
+            src={heroBackground}
+            alt="Elsaye Arba working with a laptop"
+            className="absolute inset-0 h-full w-full object-cover object-center opacity-100"
+          />
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="grid w-full max-w-4xl grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4 mb-12"
-          >
-            <div className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-left shadow-[0_10px_40px_rgba(0,0,0,0.15)]">
-              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
-                <MapPin className="h-4 w-4" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-accent/80">
-                  Location
-                </p>
-                <p className="mt-1 text-sm font-medium text-white/85">
-                  Based in {PERSONAL_INFO.location}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-left shadow-[0_10px_40px_rgba(0,0,0,0.15)]">
-              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
-                <Quote className="h-4 w-4" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-accent/80">
-                  Tagline
-                </p>
-                <p className="mt-1 text-sm font-medium leading-snug text-white/85">
-                  {PERSONAL_INFO.tagline}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-left shadow-[0_10px_40px_rgba(0,0,0,0.15)]">
-              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
-                <Sparkles className="h-4 w-4" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-accent/80">
-                  Focus
-                </p>
-                <p className="mt-1 text-sm font-medium leading-snug text-white/85">
-                  {PERSONAL_INFO.subheadline}
-                </p>
-              </div>
-            </div>
-
-            <a
-              href={`mailto:${PERSONAL_INFO.email}`}
-              className="flex items-start gap-3 rounded-2xl border border-accent/20 bg-accent/10 px-4 py-4 text-left transition-all hover:border-accent/40 hover:bg-accent/15 shadow-[0_10px_40px_rgba(0,0,0,0.15)]"
+        <motion.div
+          variants={panelVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex h-full flex-col justify-between rounded-[2rem] border border-border bg-panel p-6 text-left shadow-[0_30px_80px_rgba(15,23,42,0.12)] sm:p-8 lg:p-10"
+        >
+          <div className="space-y-5">
+            <motion.div
+              variants={contentItemVariants}
+              className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.2em] text-accent"
             >
-              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-black">
-                <Mail className="h-4 w-4" />
+              <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+              Available for New Projects
+            </motion.div>
+
+            <motion.p
+              variants={contentItemVariants}
+              className="text-[10px] font-black uppercase tracking-[0.5em] opacity-60"
+            >
+              Expert Creative Direction
+            </motion.p>
+
+            <motion.h2
+              variants={contentItemVariants}
+              className="max-w-xl text-4xl font-serif font-light leading-[1.02] tracking-tighter sm:text-5xl lg:text-6xl"
+            >
+              I Create Digital <br className="hidden md:block" />
+              <span className="text-accent italic">Experiences</span> That{" "}
+              <br className="hidden md:block" />
+              Grow Your Business
+            </motion.h2>
+
+            <motion.p
+              variants={contentItemVariants}
+              className="max-w-xl text-sm leading-relaxed opacity-75 sm:text-base"
+            >
+              Based in Ethiopia, I specialize in high-end design, professional
+              video editing, and modern web development solutions for
+              forward-thinking brands.
+            </motion.p>
+
+            <motion.div variants={contentItemVariants} className="grid gap-3 sm:grid-cols-2">
+              <motion.div
+                whileHover={{ y: -2 }}
+                transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                className="flex items-start gap-3 rounded-2xl border border-border bg-muted px-4 py-4 shadow-sm"
+              >
+                <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                  <MapPin className="h-4 w-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[9px] font-black uppercase tracking-[0.3em] text-accent/80">
+                    Location
+                  </p>
+                  <p className="mt-1 text-sm font-medium leading-snug opacity-80">
+                    Based in {PERSONAL_INFO.location}
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ y: -2 }}
+                transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                className="flex items-start gap-3 rounded-2xl border border-border bg-muted px-4 py-4 shadow-sm"
+              >
+                <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                  <Quote className="h-4 w-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[9px] font-black uppercase tracking-[0.3em] text-accent/80">
+                    Tagline
+                  </p>
+                  <p className="mt-1 text-sm font-medium leading-snug opacity-80">
+                    {PERSONAL_INFO.tagline}
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ y: -2 }}
+                transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                className="flex items-start gap-3 rounded-2xl border border-border bg-muted px-4 py-4 shadow-sm"
+              >
+                <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                  <Sparkles className="h-4 w-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[9px] font-black uppercase tracking-[0.3em] text-accent/80">
+                    Focus
+                  </p>
+                  <p className="mt-1 text-sm font-medium leading-snug opacity-80">
+                    {PERSONAL_INFO.subheadline}
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.a
+                href={`mailto:${PERSONAL_INFO.email}`}
+                whileHover={{ y: -2 }}
+                transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                className="flex items-start gap-3 rounded-2xl border border-accent/20 bg-accent/10 px-4 py-4 shadow-sm transition-all hover:border-accent/40 hover:bg-accent/15"
+              >
+                <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-black">
+                  <Mail className="h-4 w-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[9px] font-black uppercase tracking-[0.3em] text-accent">
+                    Email
+                  </p>
+                  <p className="mt-1 break-all text-sm font-medium opacity-90">
+                    {PERSONAL_INFO.email}
+                  </p>
+                </div>
+              </motion.a>
+            </motion.div>
+          </div>
+
+          <motion.div variants={contentItemVariants} className="mt-8 space-y-6">
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <motion.a
+                href="#portfolio"
+                whileHover={{ y: -2 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="w-full rounded-sm bg-accent px-8 py-4 text-center text-xs font-black uppercase tracking-[0.2em] text-black transition-all hover:bg-white active:scale-95 sm:w-auto"
+              >
+                Explore Projects
+              </motion.a>
+              <motion.a
+                href="#contact"
+                whileHover={{ y: -2 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="w-full rounded-sm border border-border px-8 py-4 text-center text-xs font-black uppercase tracking-[0.2em] transition-all hover:bg-muted active:scale-95 sm:w-auto"
+              >
+                Start a Conversation
+              </motion.a>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 border-t border-border pt-5">
+              <p className="text-[10px] font-black uppercase tracking-[0.35em] opacity-60">
+                Connect
+              </p>
+              <div className="flex items-center gap-4 opacity-60">
+                <a
+                  href={PERSONAL_INFO.socials.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-accent"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a
+                  href={PERSONAL_INFO.socials.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-accent"
+                  aria-label="GitHub"
+                >
+                  <Github className="h-4 w-4" />
+                </a>
+                <a
+                  href={PERSONAL_INFO.socials.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-accent"
+                  aria-label="TikTok"
+                >
+                  <span className="text-[10px] font-black italic">Tk</span>
+                </a>
               </div>
-              <div className="min-w-0">
-                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-accent">
-                  Email
-                </p>
-                <p className="mt-1 text-sm font-medium text-white/90 break-all">
-                  {PERSONAL_INFO.email}
-                </p>
-              </div>
-            </a>
+            </div>
           </motion.div>
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto"
-        >
-          <a
-            href="#portfolio"
-            className="w-full sm:w-auto px-10 py-5 bg-accent text-black font-black text-xs uppercase tracking-[0.2em] hover:bg-white transition-all shadow-2xl shadow-accent/20 rounded-sm active:scale-95"
-          >
-            Explore Projects
-          </a>
-          <a
-            href="#contact"
-            className="w-full sm:w-auto px-10 py-5 border border-white/10 text-white font-black text-xs uppercase tracking-[0.2em] hover:bg-white/5 transition-all text-center rounded-sm active:scale-95"
-          >
-            Start a Conversation
-          </a>
-        </motion.div>
-      </div>
-
-      {/* Social Rail (Recipe 11 inspired) */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute left-6 bottom-12 hidden md:flex flex-col gap-8 text-white/20"
-      >
-        <a
-          href={PERSONAL_INFO.socials.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-accent transition-colors"
-        >
-          <Instagram className="w-5 h-5" />
-        </a>
-        <a
-          href={PERSONAL_INFO.socials.tiktok}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-accent transition-colors"
-        >
-          <span className="text-[10px] font-black italic">Tk</span>
-        </a>
-        <a
-          href={PERSONAL_INFO.socials.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-accent transition-colors"
-        >
-          <Github className="w-4 h-4" />
-        </a>
-        <div className="w-px h-24 bg-white/10 mx-auto" />
-      </motion.div>
-
-      {/* Scroll Down Indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30"
-      >
-        <span className="text-[10px] font-bold uppercase tracking-[0.3em]">
-          Scroll
-        </span>
-        <ArrowDown className="w-4 h-4" />
-      </motion.div>
-
-      {/* Side "Rail" Text (From Recipe 11) */}
-      <div className="hidden xl:block absolute right-12 top-1/2 -translate-y-1/2 vertical-text text-white/5 font-serif text-8xl font-bold select-none pointer-events-none uppercase">
-        Digital Excellence
-      </div>
-      <div className="hidden xl:block absolute left-12 top-1/2 -translate-y-1/2 vertical-text text-white/5 font-serif text-8xl font-bold select-none pointer-events-none uppercase rotate-0">
-        Creative Design
       </div>
     </section>
   );
