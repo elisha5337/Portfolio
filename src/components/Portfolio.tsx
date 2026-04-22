@@ -1,25 +1,112 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Plus, X, ArrowRight, Layers, Maximize2 } from 'lucide-react';
 import { PROJECTS } from '../constants';
 import { BeforeAfterSlider } from './BeforeAfterSlider';
 
+type CategoryName =
+  | 'Web Development'
+  | 'Mobile App Development'
+  | 'Logo Design'
+  | 'Photo Editing'
+  | 'Graphics Design';
+
+type CategoryTheme = {
+  selectorTitle: string;
+  selectorDescription: string;
+  selectorLine: string;
+  projectSurface: string;
+  projectBorder: string;
+  projectOverlay: string;
+  projectLabel: string;
+  projectLine: string;
+  projectPlus: string;
+};
+
+const CATEGORY_ORDER: CategoryName[] = [
+  'Web Development',
+  'Mobile App Development',
+  'Logo Design',
+  'Photo Editing',
+  'Graphics Design',
+];
+
+const CATEGORY_THEMES: Record<CategoryName, CategoryTheme> = {
+  'Web Development': {
+    selectorTitle: 'text-slate-900',
+    selectorDescription: 'Responsive websites, dashboards, and custom tools built with clean structure and fast user flows.',
+    selectorLine: 'bg-cyan-400/40',
+    projectSurface: 'bg-white',
+    projectBorder: 'border-slate-200',
+    projectOverlay: 'from-black/90 via-black/20 to-black/95',
+    projectLabel: 'text-slate-500',
+    projectLine: 'bg-slate-300',
+    projectPlus: 'bg-slate-100 text-slate-700',
+  },
+  'Mobile App Development': {
+    selectorTitle: 'text-slate-900',
+    selectorDescription: 'Touch-first app interfaces, smooth interactions, and mobile layouts designed for everyday use.',
+    selectorLine: 'bg-emerald-400/40',
+    projectSurface: 'bg-white',
+    projectBorder: 'border-slate-200',
+    projectOverlay: 'from-black/90 via-black/20 to-black/95',
+    projectLabel: 'text-slate-500',
+    projectLine: 'bg-slate-300',
+    projectPlus: 'bg-slate-100 text-slate-700',
+  },
+  'Logo Design': {
+    selectorTitle: 'text-slate-900',
+    selectorDescription: 'Simple brand marks and identity concepts focused on clarity, memorability, and visual balance.',
+    selectorLine: 'bg-amber-400/40',
+    projectSurface: 'bg-white',
+    projectBorder: 'border-slate-200',
+    projectOverlay: 'from-black/90 via-black/20 to-black/95',
+    projectLabel: 'text-slate-500',
+    projectLine: 'bg-slate-300',
+    projectPlus: 'bg-slate-100 text-slate-700',
+  },
+  'Photo Editing': {
+    selectorTitle: 'text-slate-900',
+    selectorDescription: 'Retouching, color correction, and before-and-after editing with precise detail control.',
+    selectorLine: 'bg-violet-400/40',
+    projectSurface: 'bg-white',
+    projectBorder: 'border-slate-200',
+    projectOverlay: 'from-black/90 via-black/20 to-black/95',
+    projectLabel: 'text-slate-500',
+    projectLine: 'bg-slate-300',
+    projectPlus: 'bg-slate-100 text-slate-700',
+  },
+  'Graphics Design': {
+    selectorTitle: 'text-slate-900',
+    selectorDescription: 'Posters, flyers, banners, and promotional visuals with strong hierarchy and clear impact.',
+    selectorLine: 'bg-rose-400/40',
+    projectSurface: 'bg-white',
+    projectBorder: 'border-slate-200',
+    projectOverlay: 'from-black/90 via-black/20 to-black/95',
+    projectLabel: 'text-slate-500',
+    projectLine: 'bg-slate-300',
+    projectPlus: 'bg-slate-100 text-slate-700',
+  },
+};
+
+const getCategoryTheme = (category: string) =>
+  CATEGORY_THEMES[category as CategoryName] ?? CATEGORY_THEMES['Web Development'];
+
 export const Portfolio = () => {
-  const [filter, setFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState<null | typeof PROJECTS[0]>(null);
   const [expandedVisualProject, setExpandedVisualProject] = useState<null | typeof PROJECTS[0]>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-  
-  const categories = ['All', ...new Set(PROJECTS.map(p => p.category))];
 
-  const filteredProjects = filter === 'All' 
-    ? PROJECTS 
-    : PROJECTS.filter(p => p.category === filter);
+  const groupedSections = CATEGORY_ORDER.map((category) => {
+    const theme = getCategoryTheme(category);
+    const projects = PROJECTS.filter((project) => project.category === category);
 
-  const handleFilterChange = (cat: string) => {
-    setFilter(cat);
-    sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
+    return {
+      category,
+      theme,
+      projects,
+    };
+  }).filter((section) => section.projects.length > 0);
 
   const closeSelectedProject = () => {
     setSelectedProject(null);
@@ -52,118 +139,130 @@ export const Portfolio = () => {
   }, [selectedProject]);
 
   return (
-    <section id="portfolio" ref={sectionRef} className="py-24 px-6 bg-depth transition-colors scroll-mt-20">
+    <section id="portfolio" ref={sectionRef} className="py-24 px-6 bg-white transition-colors scroll-mt-20">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
           <div>
             <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-accent mb-6">Works</h2>
             <h3 className="text-4xl md:text-5xl font-serif font-light">Portfolio Index</h3>
           </div>
-          
-          <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => handleFilterChange(cat)}
-                className={`px-5 py-2 rounded text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${
-                  filter === cat 
-                    ? 'bg-accent text-black underline underline-offset-4' 
-                    : 'text-slate-500 hover:text-accent'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+
+          <div className="max-w-xl">
+            <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.35em] text-accent mb-2">
+              Topics
+            </p>
+            <p className="text-[9px] md:text-[10px] font-medium uppercase tracking-[0.35em] text-slate-500">
+              Each topic is listed below with its matching projects
+            </p>
           </div>
         </div>
 
-        <motion.div 
-          layout
-          className="grid md:grid-cols-2 lg:grid-cols-2 gap-1 bg-muted border border-border p-1"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <motion.div
-                key={project.id}
+        <div className="space-y-14">
+          {groupedSections.map(({ category, theme, projects }) => {
+            const isVisualProject = ['Logo Design', 'Photo Editing', 'Graphics Design'].includes(category);
+
+            return (
+              <motion.section
+                key={category}
                 layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setSelectedProject(project)}
-                className="group relative aspect-video bg-depth overflow-hidden cursor-pointer p-4"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.55 }}
+                className="space-y-5"
               >
-                <div className={`w-full h-full relative overflow-hidden flex items-center justify-center border border-border transition-colors ${
-                  project.category.toLowerCase().includes('design') || project.category.toLowerCase().includes('editing')
-                    ? 'bg-depth/40 group-hover:bg-depth/20'
-                    : 'bg-panel'
-                }`}>
-                   <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className={`transition-transform duration-700 ease-out group-hover:scale-105 ${
-                      project.category.toLowerCase().includes('design') || project.category.toLowerCase().includes('editing')
-                        ? 'max-w-[90%] max-h-[90%] w-auto h-auto object-contain drop-shadow-2xl'
-                        : 'w-full h-full object-cover'
-                    }`}
-                    referrerPolicy="no-referrer"
-                  />
-                  
-                  {/* Subtle Grain/Texture Overlay for Design Stages */}
-                  {(project.category.toLowerCase().includes('design') || project.category.toLowerCase().includes('editing')) && (
-                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-                  )}
-                  
-                  {/* Content Overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent transition-opacity duration-500 ${
-                    project.category.toLowerCase().includes('design') || project.category.toLowerCase().includes('editing')
-                      ? 'opacity-0 group-hover:opacity-100'
-                      : 'opacity-70 group-hover:opacity-100'
-                  }`} />
-                  
-                  <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                    <p className="text-[9px] text-accent font-bold uppercase tracking-[0.4em] mb-3 transform translate-y-0 opacity-100 transition-all duration-500">
-                      {project.category}
+                <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                  <div className="min-w-0">
+                    <p className={`text-[9px] font-black uppercase tracking-[0.35em] ${theme.projectLabel}`}>
+                      {projects.length} Projects
                     </p>
-                    <h4 className="text-lg md:text-xl font-serif font-light text-white mb-2 transform translate-y-0 opacity-100 transition-all duration-500">
-                      {project.title}
+                    <h4 className={`mt-2 text-5xl md:text-7xl font-serif font-light leading-none tracking-tight ${theme.selectorTitle}`}>
+                      {category}
                     </h4>
-                    
-                    {/* Expandable description container */}
-                    <div className="relative overflow-hidden transition-all duration-500 max-h-4 group-hover:max-h-24">
-                      <p className="text-[10px] text-white/70 leading-relaxed font-medium">
-                        {project.description}
-                      </p>
-                    </div>
-
-                    <motion.div 
-                      className="h-0.5 bg-accent/30 w-12 mt-4 group-hover:w-full transition-all duration-700" 
-                    />
+                    <p className="mt-3 max-w-2xl text-[11px] md:text-sm leading-relaxed text-slate-500">
+                      {theme.selectorDescription}
+                    </p>
                   </div>
 
-                  {/* Comparison Badge */}
-                  {project.category === 'Photo Editing' && (project as any).beforeImage && (
-                    <div className="absolute top-6 left-6 z-10">
-                      <div className="bg-accent/90 backdrop-blur-md text-black text-[7px] font-black uppercase tracking-[0.2em] px-2 py-1 rounded-sm shadow-xl flex items-center gap-1.5">
-                        <Plus className="w-2.5 h-2.5" /> Comparison Study
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="absolute top-6 right-6">
-                    <div className="w-10 h-10 rounded-full bg-accent text-black flex items-center justify-center shadow-2xl transition-all duration-500 hover:scale-110 active:scale-95">
-                      <Plus className="w-5 h-5" />
-                    </div>
-                  </div>
+                  <div className={`hidden md:block h-px flex-1 self-center ${theme.selectorLine} opacity-60`} />
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
 
-        <div className="mt-20 flex justify-center">
-          <button className="px-12 py-4 border border-border text-slate-500 font-bold text-[10px] uppercase tracking-widest hover:bg-accent hover:text-black hover:border-accent transition-all cursor-pointer">
-            See All Case Studies
-          </button>
+                <motion.div
+                  layout
+                  className="grid md:grid-cols-2 gap-1 bg-white border border-slate-200 p-1"
+                >
+                  <AnimatePresence mode="popLayout">
+                    {projects.map((project) => (
+                      <motion.div
+                        key={project.id}
+                        layout
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setSelectedProject(project)}
+                        className="group relative aspect-video bg-white overflow-hidden cursor-pointer p-4"
+                      >
+                        <div className={`w-full h-full relative overflow-hidden flex items-center justify-center border transition-colors ${theme.projectSurface} ${theme.projectBorder}`}>
+                          <img 
+                            src={project.image} 
+                            alt={project.title}
+                            className={`transition-transform duration-700 ease-out group-hover:scale-105 ${
+                              isVisualProject
+                                ? 'max-w-[90%] max-h-[90%] w-auto h-auto object-contain drop-shadow-2xl'
+                                : 'w-full h-full object-cover'
+                            }`}
+                            referrerPolicy="no-referrer"
+                          />
+                          
+                          {/* Content Overlay */}
+                          <div className={`absolute inset-0 bg-gradient-to-t ${theme.projectOverlay} transition-opacity duration-500 ${
+                            isVisualProject
+                              ? 'opacity-0 group-hover:opacity-100'
+                              : 'opacity-70 group-hover:opacity-100'
+                          }`} />
+                          
+                          <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                            <p className={`text-[9px] ${theme.projectLabel} font-bold uppercase tracking-[0.4em] mb-3 transform translate-y-0 opacity-100 transition-all duration-500`}>
+                              {project.category}
+                            </p>
+                            <h4 className="text-lg md:text-xl font-serif font-light text-white mb-2 transform translate-y-0 opacity-100 transition-all duration-500">
+                              {project.title}
+                            </h4>
+                            
+                            {/* Expandable description container */}
+                            <div className="relative overflow-hidden transition-all duration-500 max-h-4 group-hover:max-h-24">
+                              <p className="text-[10px] text-white/70 leading-relaxed font-medium">
+                                {project.description}
+                              </p>
+                            </div>
+
+                            <motion.div 
+                              className={`h-0.5 ${theme.projectLine} w-12 mt-4 group-hover:w-full transition-all duration-700`} 
+                            />
+                          </div>
+
+                          {/* Comparison Badge */}
+                          {project.category === 'Photo Editing' && (project as any).beforeImage && (
+                            <div className="absolute top-6 left-6 z-10">
+                              <div className="flex items-center gap-1.5 rounded-sm border border-slate-200 bg-white/95 px-2 py-1 text-[7px] font-black uppercase tracking-[0.2em] text-slate-700 shadow-lg">
+                                <Plus className="w-2.5 h-2.5" /> Comparison Study
+                              </div>
+                            </div>
+                          )}
+
+                          <div className="absolute top-6 right-6">
+                            <div className={`w-10 h-10 rounded-full ${theme.projectPlus} flex items-center justify-center shadow-2xl transition-all duration-500 hover:scale-110 active:scale-95`}>
+                              <Plus className="w-5 h-5" />
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </motion.div>
+              </motion.section>
+            );
+          })}
         </div>
       </div>
 
@@ -200,7 +299,7 @@ export const Portfolio = () => {
                 {/* Visual Content Stage */}
                 <div className="flex-1 relative flex flex-col items-center justify-center p-3 md:p-8 overflow-hidden">
                   <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-                  {(selectedProject.category === 'Photo Editing' || selectedProject.category === 'Graphics Design') && (
+                  {(selectedProject.category === 'Photo Editing' || selectedProject.category === 'Graphics Design' || selectedProject.category === 'Logo Design') && (
                     <button
                       type="button"
                       onClick={openVisualFullscreen}
@@ -233,7 +332,7 @@ export const Portfolio = () => {
                         src={selectedProject.image} 
                         alt={selectedProject.title}
                         className={`transition-all duration-700 ${
-                          selectedProject.category.toLowerCase().includes('design') || selectedProject.category.toLowerCase().includes('editing')
+                          selectedProject.category === 'Logo Design' || selectedProject.category === 'Photo Editing' || selectedProject.category === 'Graphics Design'
                             ? 'max-w-[95%] max-h-full object-contain drop-shadow-[0_15px_40px_rgba(0,0,0,1)] rounded-sm'
                             : 'w-full h-full object-cover shadow-2xl'
                         }`}

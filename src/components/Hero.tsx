@@ -1,15 +1,8 @@
 import React from "react";
 import { motion } from "motion/react";
-import {
-  Mail,
-  Github,
-  Instagram,
-  MapPin,
-  Quote,
-  Sparkles,
-} from "lucide-react";
+import { Mail, Github, Instagram, MapPin, Quote, Sparkles } from "lucide-react";
 import { PERSONAL_INFO } from "../constants";
-import heroBackground from "../Assets/defence.png";
+import heroBackground from "../Assets/edited3.png";
 
 const imageVariants = {
   hidden: { opacity: 0, scale: 1.03 },
@@ -103,7 +96,10 @@ export const Hero = () => {
               forward-thinking brands.
             </motion.p>
 
-            <motion.div variants={contentItemVariants} className="grid gap-3 sm:grid-cols-2">
+            <motion.div
+              variants={contentItemVariants}
+              className="grid gap-3 sm:grid-cols-2"
+            >
               <motion.div
                 whileHover={{ y: -2 }}
                 transition={{ type: "spring", stiffness: 260, damping: 22 }}
