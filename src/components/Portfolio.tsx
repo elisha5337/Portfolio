@@ -205,7 +205,7 @@ export const Portfolio = () => {
                       type="button"
                       onClick={openVisualFullscreen}
                       aria-label="Open fullscreen preview"
-                      className="absolute top-4 right-4 z-20 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/65 px-3 py-2 text-[9px] font-black uppercase tracking-[0.25em] text-white/80 backdrop-blur-md transition-all hover:border-accent/40 hover:bg-accent hover:text-black"
+                      className="absolute bottom-4 right-4 z-20 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/65 px-3 py-2 text-[9px] font-black uppercase tracking-[0.25em] text-white/80 backdrop-blur-md transition-all hover:border-accent/40 hover:bg-accent hover:text-black md:bottom-auto md:top-4"
                     >
                       <Maximize2 className="h-3.5 w-3.5" />
                       Full Screen
