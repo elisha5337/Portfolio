@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import raw1 from "./Assets/raw.jpg";
 import edited1 from "./Assets/edited1.png";
+import fu from "./Assets/fu.jpg";   
 import raw2 from "./Assets/raw2.jpeg";
 import edited2 from "./Assets/edited2.png";
 import edited3 from "./Assets/edited3.png";
@@ -173,8 +174,23 @@ export const PROJECTS = [
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
   },
-  {
+  {{
     id: 3,
+    title: "FU-Link App",
+    category: "Mobile App Development",
+    description:
+      "A digital yearbook and legacy archiving feature built into the fellowship app. It allows graduating (GC) students to preserve their university experiences, share life lessons, post parting advice for juniors, and link their professional portfolios.",
+    objective:
+      "To bridge the gap between graduating seniors and underclassmen while building an inspiration archive that honors the fellowship's community history.",
+    challenge:
+      "Graduating students who had already left the campus lost access to stable local network connections, causing image uploads to fail midway and corrupting database entries.",
+    outcome:
+      "Implemented an offline-first storage queue that retries failed uploads once connection drops, allowing over 150 graduates to successfully preserve their stories without data loss.",
+    tools: ["Java", "Android Studio", "Firebase", "XML"],
+    image: fu,
+  },
+  {
+    id: 4,
     title: "Employee Management System",
     category: "Web Development",
     description:
@@ -190,7 +206,7 @@ export const PROJECTS = [
       "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    id: 4,
+    id: 5,
     title: "Discussion Hub System",
     category: "Web Development",
     description:
@@ -206,7 +222,7 @@ export const PROJECTS = [
       "https://images.unsplash.com/photo-1515378866965-f80dcd591c8a?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    id: 5,
+    id: 6,
     title: "Netflix Clone",
     category: "Web Development",
     description:
@@ -222,7 +238,7 @@ export const PROJECTS = [
       "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    id: 6,
+    id: 7,
     title: "EcoLink Brand Identity",
     category: "Logo Design",
     description:
@@ -238,7 +254,7 @@ export const PROJECTS = [
       "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    id: 7,
+    id: 8,
     title: "Cinematic Color Grade",
     category: "Photo Editing",
     description:
@@ -255,7 +271,7 @@ export const PROJECTS = [
     afterImage: edited1,
   },
   {
-    id: 8,
+    id: 9,
     title: "Urban Retouching",
     category: "Photo Editing",
     description:
@@ -274,7 +290,7 @@ export const PROJECTS = [
       "https://images.unsplash.com/photo-1449034446853-66c86144b0ad?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    id: 9,
+    id: 10,
     title: "Conference Rollup Banner",
     category: "Graphics Design",
     description:
@@ -289,7 +305,7 @@ export const PROJECTS = [
       "https://images.unsplash.com/photo-1596541223130-5d31a73fb6c6?q=80&w=1200&auto=format&fit=crop&ar=1:3",
   },
   {
-    id: 10,
+    id: 11,
     title: "Summer Music Fest Flyer",
     category: "Graphics Design",
     description:
