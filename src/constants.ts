@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import raw1 from "./Assets/raw.jpg";
 import edited1 from "./Assets/edited1.png";
-import fu from "./Assets/fu.jpg";   
+import fu from "./Assets/fu.jpg";
 import raw2 from "./Assets/raw2.jpeg";
 import edited2 from "./Assets/edited2.png";
 import edited3 from "./Assets/edited3.png";
@@ -21,6 +21,7 @@ import raw4 from "./Assets/raw4.jpg";
 import banner1Web from "./Assets/banner1-web.jpg";
 import rollup1Web from "./Assets/RollUp1-web.jpg";
 import logo1 from "./Assets/logo.jpg";
+
 export const PERSONAL_INFO = {
   name: "Elsaye Arba",
   location: "Ethiopia",
@@ -110,7 +111,7 @@ export const SERVICES = [
     description:
       "Intuitive and beautiful user interfaces designed for seamless user experiences.",
     icon: Layout,
-    image: { pc1 },
+    image: pc1, // Fixed: removed object wrapper wrapper { }
     deliverables: ["Figma prototypes", "User flows", "Design systems"],
     benefits: ["Reduced friction", "User satisfaction", "Modern look"],
   },
@@ -174,7 +175,8 @@ export const PROJECTS = [
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
   },
-  {{
+  {
+    // Fixed: Changed global double curly braces `{{` to single brace `{`
     id: 3,
     title: "FU-Link App",
     category: "Mobile App Development",
