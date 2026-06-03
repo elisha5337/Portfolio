@@ -1,15 +1,15 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Plus, X, ArrowRight, Layers, Maximize2 } from 'lucide-react';
-import { PROJECTS } from '../constants';
-import { BeforeAfterSlider } from './BeforeAfterSlider';
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Plus, X, ArrowRight, Layers, Maximize2 } from "lucide-react";
+import { PROJECTS } from "../constants";
+import { BeforeAfterSlider } from "./BeforeAfterSlider";
 
 type CategoryName =
-  | 'Web Development'
-  | 'Mobile App Development'
-  | 'Logo Design'
-  | 'Photo Editing'
-  | 'Graphics Design';
+  | "Web Development"
+  | "Mobile App Development"
+  | "Logo Design"
+  | "Photo Editing"
+  | "Graphics Design";
 
 type CategoryTheme = {
   selectorTitle: string;
@@ -24,82 +24,94 @@ type CategoryTheme = {
 };
 
 const CATEGORY_ORDER: CategoryName[] = [
-  'Web Development',
-  'Mobile App Development',
-  'Logo Design',
-  'Photo Editing',
-  'Graphics Design',
+  "Web Development",
+  "Mobile App Development",
+  "Logo Design",
+  "Photo Editing",
+  "Graphics Design",
 ];
 
 const CATEGORY_THEMES: Record<CategoryName, CategoryTheme> = {
-  'Web Development': {
-    selectorTitle: 'text-slate-900',
-    selectorDescription: 'Responsive websites, dashboards, and custom tools built with clean structure and fast user flows.',
-    selectorLine: 'bg-cyan-400/40',
-    projectSurface: 'bg-white',
-    projectBorder: 'border-slate-200',
-    projectOverlay: 'from-black/90 via-black/20 to-black/95',
-    projectLabel: 'text-slate-500',
-    projectLine: 'bg-slate-300',
-    projectPlus: 'bg-slate-100 text-slate-700',
+  "Web Development": {
+    selectorTitle: "text-slate-900",
+    selectorDescription:
+      "Responsive websites, dashboards, and custom tools built with clean structure and fast user flows.",
+    selectorLine: "bg-cyan-400/40",
+    projectSurface: "bg-white",
+    projectBorder: "border-slate-200",
+    projectOverlay: "from-black/90 via-black/20 to-black/95",
+    projectLabel: "text-slate-500",
+    projectLine: "bg-slate-300",
+    projectPlus: "bg-slate-100 text-slate-700",
   },
-  'Mobile App Development': {
-    selectorTitle: 'text-slate-900',
-    selectorDescription: 'Touch-first app interfaces, smooth interactions, and mobile layouts designed for everyday use.',
-    selectorLine: 'bg-emerald-400/40',
-    projectSurface: 'bg-white',
-    projectBorder: 'border-slate-200',
-    projectOverlay: 'from-black/90 via-black/20 to-black/95',
-    projectLabel: 'text-slate-500',
-    projectLine: 'bg-slate-300',
-    projectPlus: 'bg-slate-100 text-slate-700',
+  "Mobile App Development": {
+    selectorTitle: "text-slate-900",
+    selectorDescription:
+      "Touch-first app interfaces, smooth interactions, and mobile layouts designed for everyday use.",
+    selectorLine: "bg-emerald-400/40",
+    projectSurface: "bg-white",
+    projectBorder: "border-slate-200",
+    projectOverlay: "from-black/90 via-black/20 to-black/95",
+    projectLabel: "text-slate-500",
+    projectLine: "bg-slate-300",
+    projectPlus: "bg-slate-100 text-slate-700",
   },
-  'Logo Design': {
-    selectorTitle: 'text-slate-900',
-    selectorDescription: 'Simple brand marks and identity concepts focused on clarity, memorability, and visual balance.',
-    selectorLine: 'bg-amber-400/40',
-    projectSurface: 'bg-white',
-    projectBorder: 'border-slate-200',
-    projectOverlay: 'from-black/90 via-black/20 to-black/95',
-    projectLabel: 'text-slate-500',
-    projectLine: 'bg-slate-300',
-    projectPlus: 'bg-slate-100 text-slate-700',
+  "Logo Design": {
+    selectorTitle: "text-slate-900",
+    selectorDescription:
+      "Simple brand marks and identity concepts focused on clarity, memorability, and visual balance.",
+    selectorLine: "bg-amber-400/40",
+    projectSurface: "bg-white",
+    projectBorder: "border-slate-200",
+    projectOverlay: "from-black/90 via-black/20 to-black/95",
+    projectLabel: "text-slate-500",
+    projectLine: "bg-slate-300",
+    projectPlus: "bg-slate-100 text-slate-700",
   },
-  'Photo Editing': {
-    selectorTitle: 'text-slate-900',
-    selectorDescription: 'Retouching, color correction, and before-and-after editing with precise detail control.',
-    selectorLine: 'bg-violet-400/40',
-    projectSurface: 'bg-white',
-    projectBorder: 'border-slate-200',
-    projectOverlay: 'from-black/90 via-black/20 to-black/95',
-    projectLabel: 'text-slate-500',
-    projectLine: 'bg-slate-300',
-    projectPlus: 'bg-slate-100 text-slate-700',
+  "Photo Editing": {
+    selectorTitle: "text-slate-900",
+    selectorDescription:
+      "Retouching, color correction, and before-and-after editing with precise detail control.",
+    selectorLine: "bg-violet-400/40",
+    projectSurface: "bg-white",
+    projectBorder: "border-slate-200",
+    projectOverlay: "from-black/90 via-black/20 to-black/95",
+    projectLabel: "text-slate-500",
+    projectLine: "bg-slate-300",
+    projectPlus: "bg-slate-100 text-slate-700",
   },
-  'Graphics Design': {
-    selectorTitle: 'text-slate-900',
-    selectorDescription: 'Posters, flyers, banners, and promotional visuals with strong hierarchy and clear impact.',
-    selectorLine: 'bg-rose-400/40',
-    projectSurface: 'bg-white',
-    projectBorder: 'border-slate-200',
-    projectOverlay: 'from-black/90 via-black/20 to-black/95',
-    projectLabel: 'text-slate-500',
-    projectLine: 'bg-slate-300',
-    projectPlus: 'bg-slate-100 text-slate-700',
+  "Graphics Design": {
+    selectorTitle: "text-slate-900",
+    selectorDescription:
+      "Posters, flyers, banners, and promotional visuals with strong hierarchy and clear impact.",
+    selectorLine: "bg-rose-400/40",
+    projectSurface: "bg-white",
+    projectBorder: "border-slate-200",
+    projectOverlay: "from-black/90 via-black/20 to-black/95",
+    projectLabel: "text-slate-500",
+    projectLine: "bg-slate-300",
+    projectPlus: "bg-slate-100 text-slate-700",
   },
 };
 
 const getCategoryTheme = (category: string) =>
-  CATEGORY_THEMES[category as CategoryName] ?? CATEGORY_THEMES['Web Development'];
+  CATEGORY_THEMES[category as CategoryName] ??
+  CATEGORY_THEMES["Web Development"];
 
 export const Portfolio = () => {
-  const [selectedProject, setSelectedProject] = useState<null | typeof PROJECTS[0]>(null);
-  const [expandedVisualProject, setExpandedVisualProject] = useState<null | typeof PROJECTS[0]>(null);
+  const [selectedProject, setSelectedProject] = useState<
+    null | (typeof PROJECTS)[0]
+  >(null);
+  const [expandedVisualProject, setExpandedVisualProject] = useState<
+    null | (typeof PROJECTS)[0]
+  >(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const groupedSections = CATEGORY_ORDER.map((category) => {
     const theme = getCategoryTheme(category);
-    const projects = PROJECTS.filter((project) => project.category === category);
+    const projects = PROJECTS.filter(
+      (project) => project.category === category,
+    );
 
     return {
       category,
@@ -126,9 +138,9 @@ export const Portfolio = () => {
   // Lock scroll while the modal is open.
   useEffect(() => {
     if (selectedProject) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
   }, [selectedProject]);
 
@@ -139,12 +151,20 @@ export const Portfolio = () => {
   }, [selectedProject]);
 
   return (
-    <section id="portfolio" ref={sectionRef} className="py-24 px-6 bg-white transition-colors scroll-mt-20">
+    <section
+      id="portfolio"
+      ref={sectionRef}
+      className="py-24 px-6 bg-white transition-colors scroll-mt-20"
+    >
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
           <div>
-            <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-accent mb-6">Works</h2>
-            <h3 className="text-4xl md:text-5xl font-serif font-light">Portfolio Index</h3>
+            <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-accent mb-6">
+              Works
+            </h2>
+            <h3 className="text-4xl md:text-5xl font-serif font-light">
+              Portfolio Index
+            </h3>
           </div>
 
           <div className="max-w-xl">
@@ -159,7 +179,11 @@ export const Portfolio = () => {
 
         <div className="space-y-14">
           {groupedSections.map(({ category, theme, projects }) => {
-            const isVisualProject = ['Logo Design', 'Photo Editing', 'Graphics Design'].includes(category);
+            const isVisualProject = [
+              "Logo Design",
+              "Photo Editing",
+              "Graphics Design",
+            ].includes(category);
 
             return (
               <motion.section
@@ -173,10 +197,14 @@ export const Portfolio = () => {
               >
                 <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                   <div className="min-w-0">
-                    <p className={`text-[9px] font-black uppercase tracking-[0.35em] ${theme.projectLabel}`}>
+                    <p
+                      className={`text-[9px] font-black uppercase tracking-[0.35em] ${theme.projectLabel}`}
+                    >
                       {projects.length} Projects
                     </p>
-                    <h4 className={`mt-2 text-5xl md:text-7xl font-serif font-light leading-none tracking-tight ${theme.selectorTitle}`}>
+                    <h4
+                      className={`mt-2 text-5xl md:text-7xl font-serif font-light leading-none tracking-tight ${theme.selectorTitle}`}
+                    >
                       {category}
                     </h4>
                     <p className="mt-3 max-w-2xl text-[11px] md:text-sm leading-relaxed text-slate-500">
@@ -184,7 +212,9 @@ export const Portfolio = () => {
                     </p>
                   </div>
 
-                  <div className={`hidden md:block h-px flex-1 self-center ${theme.selectorLine} opacity-60`} />
+                  <div
+                    className={`hidden md:block h-px flex-1 self-center ${theme.selectorLine} opacity-60`}
+                  />
                 </div>
 
                 <motion.div
@@ -202,33 +232,39 @@ export const Portfolio = () => {
                         onClick={() => setSelectedProject(project)}
                         className="group relative aspect-video bg-white overflow-hidden cursor-pointer p-4"
                       >
-                        <div className={`w-full h-full relative overflow-hidden flex items-center justify-center border transition-colors ${theme.projectSurface} ${theme.projectBorder}`}>
-                          <img 
-                            src={project.image} 
+                        <div
+                          className={`w-full h-full relative overflow-hidden flex items-center justify-center border transition-colors ${theme.projectSurface} ${theme.projectBorder}`}
+                        >
+                          <img
+                            src={project.image}
                             alt={project.title}
                             className={`transition-transform duration-700 ease-out group-hover:scale-105 ${
                               isVisualProject
-                                ? 'max-w-[90%] max-h-[90%] w-auto h-auto object-contain drop-shadow-2xl'
-                                : 'w-full h-full object-cover'
+                                ? "max-w-[90%] max-h-[90%] w-auto h-auto object-contain drop-shadow-2xl"
+                                : "w-full h-full object-cover"
                             }`}
                             referrerPolicy="no-referrer"
                           />
-                          
+
                           {/* Content Overlay */}
-                          <div className={`absolute inset-0 bg-gradient-to-t ${theme.projectOverlay} transition-opacity duration-500 ${
-                            isVisualProject
-                              ? 'opacity-0 group-hover:opacity-100'
-                              : 'opacity-70 group-hover:opacity-100'
-                          }`} />
-                          
+                          <div
+                            className={`absolute inset-0 bg-gradient-to-t ${theme.projectOverlay} transition-opacity duration-500 ${
+                              isVisualProject
+                                ? "opacity-0 group-hover:opacity-100"
+                                : "opacity-70 group-hover:opacity-100"
+                            }`}
+                          />
+
                           <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                            <p className={`text-[9px] ${theme.projectLabel} font-bold uppercase tracking-[0.4em] mb-3 transform translate-y-0 opacity-100 transition-all duration-500`}>
+                            <p
+                              className={`text-[9px] ${theme.projectLabel} font-bold uppercase tracking-[0.4em] mb-3 transform translate-y-0 opacity-100 transition-all duration-500`}
+                            >
                               {project.category}
                             </p>
                             <h4 className="text-lg md:text-xl font-serif font-light text-white mb-2 transform translate-y-0 opacity-100 transition-all duration-500">
                               {project.title}
                             </h4>
-                            
+
                             {/* Expandable description container */}
                             <div className="relative overflow-hidden transition-all duration-500 max-h-4 group-hover:max-h-24">
                               <p className="text-[10px] text-white/70 leading-relaxed font-medium">
@@ -236,22 +272,26 @@ export const Portfolio = () => {
                               </p>
                             </div>
 
-                            <motion.div 
-                              className={`h-0.5 ${theme.projectLine} w-12 mt-4 group-hover:w-full transition-all duration-700`} 
+                            <motion.div
+                              className={`h-0.5 ${theme.projectLine} w-12 mt-4 group-hover:w-full transition-all duration-700`}
                             />
                           </div>
 
                           {/* Comparison Badge */}
-                          {project.category === 'Photo Editing' && (project as any).beforeImage && (
-                            <div className="absolute top-6 left-6 z-10">
-                              <div className="flex items-center gap-1.5 rounded-sm border border-slate-200 bg-white/95 px-2 py-1 text-[7px] font-black uppercase tracking-[0.2em] text-slate-700 shadow-lg">
-                                <Plus className="w-2.5 h-2.5" /> Comparison Study
+                          {project.category === "Photo Editing" &&
+                            (project as any).beforeImage && (
+                              <div className="absolute top-6 left-6 z-10">
+                                <div className="flex items-center gap-1.5 rounded-sm border border-slate-200 bg-white/95 px-2 py-1 text-[7px] font-black uppercase tracking-[0.2em] text-slate-700 shadow-lg">
+                                  <Plus className="w-2.5 h-2.5" /> Comparison
+                                  Study
+                                </div>
                               </div>
-                            </div>
-                          )}
+                            )}
 
                           <div className="absolute top-6 right-6">
-                            <div className={`w-10 h-10 rounded-full ${theme.projectPlus} flex items-center justify-center shadow-2xl transition-all duration-500 hover:scale-110 active:scale-95`}>
+                            <div
+                              className={`w-10 h-10 rounded-full ${theme.projectPlus} flex items-center justify-center shadow-2xl transition-all duration-500 hover:scale-110 active:scale-95`}
+                            >
                               <Plus className="w-5 h-5" />
                             </div>
                           </div>
@@ -277,7 +317,7 @@ export const Portfolio = () => {
               onClick={closeSelectedProject}
               className="absolute inset-0 bg-black/98 backdrop-blur-xl"
             />
-            
+
             <motion.div
               initial={{ opacity: 0, scale: 0.98, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -286,7 +326,7 @@ export const Portfolio = () => {
               className="relative w-full h-full md:h-auto md:max-h-[92vh] max-w-[96rem] bg-panel border-y md:border border-white/5 flex flex-col md:flex-row overflow-hidden shadow-2xl md:rounded-3xl z-[110]"
             >
               {/* Universal Close Handle */}
-              <button 
+              <button
                 onClick={closeSelectedProject}
                 className="absolute top-6 right-6 z-[150] w-12 h-12 bg-red-500/10 hover:bg-red-500/20 hover:text-red-400 rounded-full border border-red-500/20 flex items-center justify-center text-red-500 transition-all backdrop-blur-md group/close"
               >
@@ -295,11 +335,12 @@ export const Portfolio = () => {
 
               {/* Viewport Area: Representing the Creative Work */}
               <div className="w-full md:w-[68%] lg:w-[70%] bg-depth relative flex flex-col h-[48vh] md:h-auto border-b md:border-b-0 md:border-r border-white/5 shrink-0">
-                
                 {/* Visual Content Stage */}
                 <div className="flex-1 relative flex flex-col items-center justify-center p-3 md:p-8 overflow-hidden">
                   <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-                  {(selectedProject.category === 'Photo Editing' || selectedProject.category === 'Graphics Design' || selectedProject.category === 'Logo Design') && (
+                  {(selectedProject.category === "Photo Editing" ||
+                    selectedProject.category === "Graphics Design" ||
+                    selectedProject.category === "Logo Design") && (
                     <button
                       type="button"
                       onClick={openVisualFullscreen}
@@ -310,12 +351,16 @@ export const Portfolio = () => {
                       Full Screen
                     </button>
                   )}
-                  
+
                   {/* Photo Editing Logic */}
-                  {selectedProject.category === 'Photo Editing' && (selectedProject as any).beforeImage && (selectedProject as any).afterImage ? (
+                  {selectedProject.category === "Photo Editing" &&
+                  (selectedProject as any).beforeImage &&
+                  (selectedProject as any).afterImage ? (
                     <div className="relative w-full h-full flex flex-col">
                       <div className="absolute top-4 left-4 md:top-10 md:left-10 z-10 pointer-events-none">
-                        <p className="text-[7px] md:text-[9px] font-black text-accent uppercase tracking-[0.4em] mb-1">Editor Suite</p>
+                        <p className="text-[7px] md:text-[9px] font-black text-accent uppercase tracking-[0.4em] mb-1">
+                          Editor Suite
+                        </p>
                         <div className="h-[1px] w-4 md:w-6 bg-accent" />
                       </div>
 
@@ -328,13 +373,15 @@ export const Portfolio = () => {
                     </div>
                   ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center">
-                      <img 
-                        src={selectedProject.image} 
+                      <img
+                        src={selectedProject.image}
                         alt={selectedProject.title}
                         className={`transition-all duration-700 ${
-                          selectedProject.category === 'Logo Design' || selectedProject.category === 'Photo Editing' || selectedProject.category === 'Graphics Design'
-                            ? 'max-w-[95%] max-h-full object-contain drop-shadow-[0_15px_40px_rgba(0,0,0,1)] rounded-sm'
-                            : 'w-full h-full object-cover shadow-2xl'
+                          selectedProject.category === "Logo Design" ||
+                          selectedProject.category === "Photo Editing" ||
+                          selectedProject.category === "Graphics Design"
+                            ? "max-w-[95%] max-h-full object-contain drop-shadow-[0_15px_40px_rgba(0,0,0,1)] rounded-sm"
+                            : "w-full h-full object-cover shadow-2xl"
                         }`}
                         referrerPolicy="no-referrer"
                       />
@@ -343,20 +390,21 @@ export const Portfolio = () => {
                 </div>
 
                 {/* Instruction Banner - Bottom Fixed */}
-                {selectedProject.category === 'Photo Editing' && (
+                {selectedProject.category === "Photo Editing" && (
                   <div className="bg-accent/5 border-t border-accent/10 px-4 py-3 text-center hidden md:block">
-                     <p className="text-[8px] md:text-[10px] font-black text-accent uppercase tracking-[0.3em] md:tracking-[0.5em] animate-pulse">
-                       Interactive Portfolio: Use the eye button for instant preview and drag the slider to compare
-                     </p>
+                    <p className="text-[8px] md:text-[10px] font-black text-accent uppercase tracking-[0.3em] md:tracking-[0.5em] animate-pulse">
+                      Interactive Portfolio: Use the eye button for instant
+                      preview and drag the slider to compare
+                    </p>
                   </div>
                 )}
               </div>
 
               {/* Context Area: Detailed Information */}
               <div className="flex-1 bg-panel overflow-hidden">
-                <ProjectDetails 
-                  project={selectedProject} 
-                  onClose={closeSelectedProject} 
+                <ProjectDetails
+                  project={selectedProject}
+                  onClose={closeSelectedProject}
                 />
               </div>
             </motion.div>
@@ -397,7 +445,9 @@ export const Portfolio = () => {
                   <span>{expandedVisualProject.title}</span>
                 </div>
 
-                {expandedVisualProject.category === 'Photo Editing' && (expandedVisualProject as any).beforeImage && (expandedVisualProject as any).afterImage ? (
+                {expandedVisualProject.category === "Photo Editing" &&
+                (expandedVisualProject as any).beforeImage &&
+                (expandedVisualProject as any).afterImage ? (
                   <div className="flex h-full min-h-0 flex-col gap-4">
                     <p className="text-[9px] font-black uppercase tracking-[0.35em] text-white/45">
                       Use the eye button for instant preview and drag to compare
@@ -429,7 +479,7 @@ export const Portfolio = () => {
 };
 
 interface ProjectDetailsProps {
-  project: typeof PROJECTS[0];
+  project: (typeof PROJECTS)[0];
   onClose: () => void;
 }
 
@@ -454,18 +504,20 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
           {p.objective && (
             <div className="group/item">
               <h4 className="text-[8px] md:text-[10px] font-black text-accent uppercase tracking-[0.3em] mb-2 md:mb-4 flex items-center gap-3">
-                <span className="w-6 h-px bg-accent/30 group-hover/item:w-10 transition-all" /> Objective
+                <span className="w-6 h-px bg-accent/30 group-hover/item:w-10 transition-all" />{" "}
+                Objective
               </h4>
               <p className="text-[11px] md:text-sm text-slate-300 font-medium leading-relaxed italic border-l border-white/5 pl-3 md:pl-4">
                 {p.objective}
               </p>
             </div>
           )}
-          
+
           {p.challenge && (
             <div className="group/item">
               <h4 className="text-[8px] md:text-[10px] font-black text-accent uppercase tracking-[0.3em] mb-2 md:mb-4 flex items-center gap-3">
-                <span className="w-6 h-px bg-accent/30 group-hover/item:w-10 transition-all" /> Challenge
+                <span className="w-6 h-px bg-accent/30 group-hover/item:w-10 transition-all" />{" "}
+                Challenge
               </h4>
               <p className="text-[11px] md:text-sm text-slate-300 font-medium leading-relaxed border-l border-white/5 pl-3 md:pl-4">
                 {p.challenge}
@@ -476,7 +528,8 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
           {p.outcome && (
             <div className="group/item">
               <h4 className="text-[8px] md:text-[10px] font-black text-accent uppercase tracking-[0.3em] mb-2 md:mb-4 flex items-center gap-3">
-                <span className="w-6 h-px bg-accent/30 group-hover/item:w-10 transition-all" /> Outcome
+                <span className="w-6 h-px bg-accent/30 group-hover/item:w-10 transition-all" />{" "}
+                Outcome
               </h4>
               <p className="text-[11px] md:text-sm text-slate-300 font-medium leading-relaxed border-l border-white/5 pl-3 md:pl-4">
                 {p.outcome}
@@ -487,10 +540,15 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
 
         <div className="space-y-8 md:space-y-10">
           <div className="hidden sm:block">
-            <h4 className="text-[10px] font-black text-white uppercase tracking-[0.3em] mb-6">Built With</h4>
+            <h4 className="text-[10px] font-black text-white uppercase tracking-[0.3em] mb-6">
+              Built With
+            </h4>
             <div className="flex flex-wrap gap-2.5">
               {project.tools.map((tool) => (
-                <span key={tool} className="px-4 py-2 bg-depth/50 border border-white/5 text-[9px] font-black uppercase tracking-widest text-white/50 rounded hover:text-accent hover:border-accent/30 transition-colors">
+                <span
+                  key={tool}
+                  className="px-4 py-2 bg-depth/50 border border-white/5 text-[9px] font-black uppercase tracking-widest text-white/50 rounded hover:text-accent hover:border-accent/30 transition-colors"
+                >
                   {tool}
                 </span>
               ))}
@@ -498,16 +556,21 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            {!(project.category === 'Photo Editing' || project.category === 'Graphics Design') && (
-              <button className="w-full sm:flex-1 inline-flex items-center justify-center gap-3 md:gap-4 text-[9px] md:text-[10px] font-black text-accent uppercase tracking-[0.3em] md:tracking-[0.4em] group/btn py-4 md:py-5 border border-accent/20 hover:bg-accent hover:text-black transition-all relative overflow-hidden">
+            {p.link && (
+              <a
+                href={p.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:flex-1 inline-flex items-center justify-center gap-3 md:gap-4 text-[9px] md:text-[10px] font-black text-accent uppercase tracking-[0.3em] md:tracking-[0.4em] group/btn py-4 md:py-5 border border-accent/20 hover:bg-accent hover:text-black transition-all relative overflow-hidden"
+              >
                 <span className="relative z-10">Launch Project</span>
                 <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4 relative z-10 group-hover/btn:translate-x-2 transition-transform" />
-              </button>
+              </a>
             )}
-            
-            <button 
+
+            <button
               onClick={onClose}
-              className={`w-full ${!(project.category === 'Photo Editing' || project.category === 'Graphics Design') ? 'sm:w-auto' : 'sm:flex-1'} inline-flex items-center justify-center gap-3 px-8 py-4 md:py-5 text-[9px] md:text-[10px] font-black text-white/30 hover:text-white uppercase tracking-widest border border-white/5 hover:border-white/10 transition-all cursor-pointer`}
+              className={`w-full ${p.link ? "sm:w-auto" : "sm:flex-1"} inline-flex items-center justify-center gap-3 px-8 py-4 md:py-5 text-[9px] md:text-[10px] font-black text-white/30 hover:text-white uppercase tracking-widest border border-white/5 hover:border-white/10 transition-all cursor-pointer`}
               id="desktop-close-btn"
             >
               Close

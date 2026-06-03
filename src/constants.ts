@@ -21,7 +21,7 @@ import raw4 from "./Assets/raw4.jpg";
 import banner1Web from "./Assets/banner1-web.jpg";
 import rollup1Web from "./Assets/RollUp1-web.jpg";
 import logo1 from "./Assets/logo.jpg";
-
+import amazon from "./Assets/download.webp";
 export const PERSONAL_INFO = {
   name: "Elsaye Arba",
   location: "Ethiopia",
@@ -156,8 +156,8 @@ export const PROJECTS = [
     outcome:
       "Successfully implemented a scalable architecture with secure Stripe payment integration.",
     tools: ["Node.js", "Express", "React", "Javascript", "Stripe"],
-    image:
-      "https://images.unsplash.com/photo-1523474253046-2cd2c78b6ad1?q=80&w=1200&auto=format&fit=crop",
+    link: "https://clone-8fcca.web.app",
+    image: amazon,
   },
   {
     id: 2,
@@ -172,6 +172,7 @@ export const PROJECTS = [
     outcome:
       "Increased student engagement by 25% and reduced manual grading efforts for teachers.",
     tools: ["Java", "Android Studio", "Firebase", "XML"],
+    link: "https://github.com/elisha5337/exam-hub",
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
   },
@@ -185,15 +186,16 @@ export const PROJECTS = [
     objective:
       "To bridge the gap between graduating seniors and underclassmen while building an inspiration archive that honors the fellowship's community history.",
     challenge:
-      "Graduating students who had already left the campus lost access to stable local network connections, causing image uploads to fail midway and corrupting database entries.",
+      "Graduating students who had already left the campus lost access to network with teammates.",
     outcome:
-      "Implemented an offline-first storage queue that retries failed uploads once connection drops, allowing over 150 graduates to successfully preserve their stories without data loss.",
+      "Implemented an app that connects fresh and graduates together, allowing to keep in touch and  successfully preserve their memories and stories.",
     tools: ["Java", "Android Studio", "Firebase", "XML"],
+    link: "https://expo.dev/accounts/eliisha/projects/FollowUpApp/builds/24b509b8-40cb-4396-905d-e2ec904bbe82",
     image: fu,
   },
   {
     id: 4,
-    title: "Employee Management System",
+    title: "Biometric Based Employee Attendance Management System",
     category: "Web Development",
     description:
       "An internal corporate tool designed to manage employee records, department structures, and payroll. Highly secure and optimized for administrative efficiency.",
@@ -204,6 +206,7 @@ export const PROJECTS = [
     outcome:
       "Reduced HR processing time by 40% and improved data accuracy across the organization.",
     tools: ["Django", "React", "PostgreSQL", "Tailwind CSS"],
+    link: "https://final-year-project-oyku.onrender.com/login",
     image:
       "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200&auto=format&fit=crop",
   },
@@ -220,8 +223,8 @@ export const PROJECTS = [
     outcome:
       "Grew to 5,000+ active users within the first three months of launch.",
     tools: ["React", "Node.js", "MongoDB", "Socket.io"],
-    image:
-      "https://images.unsplash.com/photo-1515378866965-f80dcd591c8a?q=80&w=1200&auto=format&fit=crop",
+    link: "https://github.com/elisha5337/discussion-hub",
+    image: edited3,
   },
   {
     id: 6,
@@ -236,6 +239,7 @@ export const PROJECTS = [
     outcome:
       "Achieved a Lighthouse performance score of 95+ and perfected the cinema-style UI/UX.",
     tools: ["React", "TMDB API", "Firebase", "Styled Components"],
+    link: "https://github.com/elisha5337/netflix-clone",
     image:
       "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1200&auto=format&fit=crop",
   },
