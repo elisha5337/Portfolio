@@ -172,7 +172,7 @@ export const PROJECTS = [
     outcome:
       "Increased student engagement by 25% and reduced manual grading efforts for teachers.",
     tools: ["Java", "Android Studio", "Firebase", "XML"],
-    link: "https://github.com/elisha5337/exam-hub",
+    link: "elsaye-arba-portfolio.vercel.app",
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
   },
@@ -223,7 +223,7 @@ export const PROJECTS = [
     outcome:
       "Grew to 5,000+ active users within the first three months of launch.",
     tools: ["React", "Node.js", "MongoDB", "Socket.io"],
-    link: "https://github.com/elisha5337/discussion-hub",
+    link: "elsaye-arba-portfolio.vercel.app",
     image: edited3,
   },
   {
@@ -239,7 +239,7 @@ export const PROJECTS = [
     outcome:
       "Achieved a Lighthouse performance score of 95+ and perfected the cinema-style UI/UX.",
     tools: ["React", "TMDB API", "Firebase", "Styled Components"],
-    link: "https://github.com/elisha5337/netflix-clone",
+    link: " elsaye-arba-portfolio.vercel.app",
     image:
       "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1200&auto=format&fit=crop",
   },
